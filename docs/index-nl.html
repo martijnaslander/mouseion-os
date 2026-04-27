@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mouseion OS — De Zelflezende Bibliotheek</title>
+<meta name="description" content="Een zelflezende bibliotheek die entiteiten extraheert, tijdlijnen bouwt, conceptmigratie traceert en contradicties tussen bronnen detecteert. Gebouwd door Martijn Aslander.">
+<meta property="og:title" content="Mouseion OS — De Zelflezende Bibliotheek">
+<meta property="og:description" content="Wat als elk boek dat je bezit zichzelf kon lezen — en elk ander boek op de plank?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://martijnaslander.github.io/mouseion-os/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Mouseion OS",
+  "url": "https://martijnaslander.github.io/mouseion-os/",
+  "description": "Mouseion OS (MOS) is een zelflezende bibliotheek: een persoonlijk onderzoeksinstrument dat bronmateriaal niet alleen opslaat, maar zichzelf leest.",
+  "author": {
+    "@type": "Person",
+    "name": "Martijn Aslander",
+    "sameAs": [
+      "https://orcid.org/0009-0004-2344-0620",
+      "https://www.linkedin.com/in/aslander/"
+    ]
+  }
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Mouseion OS Journal" href="blog/feed.xml">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Verdana, system-ui, Helvetica, sans-serif;
+    background: #2c3338;
+    color: #eee;
+    line-height: 1.85;
+    font-size: 19px;
+    padding-top: 48px;
+}
+a { color: #eee; text-decoration: none; border-bottom: 1px solid #777; padding-bottom: 1px; }
+a:hover { color: #fff; background-color: #3e464e; border-color: #3e464e; }
+.container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+.accent { color: #d4a054; }
+
+header {
+    padding: 40px 0 40px;
+    border-bottom: 1px solid #3e464e;
+    text-align: center;
+}
+.lang-toggle { display: inline-flex; gap: 4px; margin-bottom: 24px; }
+.lang-toggle a { display: inline-block; padding: 6px 12px; font-size: 18px; border: 2px solid transparent; border-radius: 6px; cursor: pointer; background: rgba(44,51,56,0.9); line-height: 1; }
+.lang-toggle a:hover { border-color: #d4a054; background: rgba(44,51,56,0.9); border-bottom: 2px solid #d4a054; }
+.lang-toggle a.active { border-color: #fff; background: rgba(44,51,56,0.9); }
+header h1 { font-size: 48px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 18px; line-height: 1.2; }
+header .intro { font-size: 20px; color: #e0e0e0; margin-bottom: 28px; }
+.stats-row { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; margin-bottom: 18px; }
+.stats-row .stat { font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+.stats-row .num { font-size: 28px; font-weight: 700; color: #fff; }
+.stats-row .label { font-size: 12px; color: #c0c0c0; text-transform: uppercase; letter-spacing: 1px; }
+.author-line { font-size: 14px; color: #c0c0c0; }
+
+section { padding: 44px 0; border-bottom: 1px solid #3e464e; }
+section h2 { font-size: 32px; color: #fff; margin-bottom: 20px; letter-spacing: -0.5px; }
+p { margin-bottom: 14px; }
+
+.adagium { padding: 48px 0 44px; text-align: center; border-bottom: 1px solid #3e464e; }
+.adagium-label { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #d4a054; margin-bottom: 18px; }
+.adagium-text { font-size: 24px; color: #fff; line-height: 2; font-style: italic; margin-bottom: 0; }
+.adagium-text strong { font-style: normal; font-weight: 700; }
+
+blockquote { margin: 28px 0; padding: 0 0 0 20px; border-left: 3px solid #d4a054; font-size: 21px; color: #fff; font-style: italic; line-height: 1.7; }
+
+.featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.featured-card { background: #343c42; border: 1px solid #3e464e; border-radius: 8px; padding: 20px; transition: border-color 0.2s; }
+.featured-card:hover { border-color: #d4a054; }
+.featured-card a { border-bottom: none; }
+.featured-card a:hover { background: none; }
+.featured-card .card-title { font-size: 16px; font-weight: 700; color: #fff; display: block; margin-bottom: 6px; border-bottom: none; }
+.featured-card .card-desc { font-size: 13px; color: #c0c0c0; line-height: 1.6; }
+.featured-card .card-tag { display: inline-block; font-size: 10px; color: #d4a054; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+.marker { font-family: -apple-system, sans-serif; font-size: 20px; font-weight: 700; color: #d4a054; letter-spacing: 0.5px; margin-top: 44px; margin-bottom: 12px; }
+
+.cluster { margin: 12px 0 24px; padding-left: 16px; border-left: 2px solid #3e464e; }
+.cluster a { display: block; font-size: 14px; color: #c0c0c0; border-bottom: none; padding: 3px 0; }
+.cluster a:hover { color: #fff; background: none; border-bottom: none; }
+
+.architecture { background: #343c42; border: 1px solid #3e464e; border-radius: 10px; padding: 36px; margin: 28px 0; font-family: 'SF Mono', 'Menlo', monospace; }
+.arch-zaal { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.arch-room { border: 1px solid #4a5560; border-radius: 8px; padding: 16px; background: #3a4248; }
+.arch-room .room-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.arch-room .room-desc { font-size: 12px; color: #b0b0b0; }
+.arch-buizenpost { text-align: center; padding: 10px; color: #d4a054; font-size: 12px; font-weight: 700; letter-spacing: 1px; border: 1px dashed #d4a054; border-radius: 6px; }
+
+.roles-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 20px 0; }
+.roles-table th { padding: 10px; color: #d4a054; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; text-align: left; border-bottom: 2px solid #3e464e; }
+.roles-table td { padding: 10px; border-bottom: 1px solid #3e464e; color: #c0c0c0; }
+.roles-table td:first-child { color: #fff; font-weight: 600; }
+
+.pipeline { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 28px 0; }
+.pipeline-step { background: #3a4248; border: 1px solid #4a5560; border-radius: 8px; padding: 16px; text-align: center; }
+.pipeline-step .step-num { color: #d4a054; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.pipeline-step .step-name { color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.pipeline-step .step-desc { color: #b0b0b0; font-size: 12px; }
+.pipeline-arrow { display: none; }
+
+.sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(44,51,56,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid #3e464e; }
+.sticky-nav-inner { max-width: 1140px; margin: 0 auto; padding: 12px 20px; display: flex; gap: 18px; align-items: center; justify-content: center; overflow-x: auto; font-size: 14px; position: relative; }
+.sticky-nav a { color: #b0b0b0; border-bottom: none; white-space: nowrap; }
+.sticky-nav a:hover { color: #fff; background: none; }
+.nav-divider { width: 1px; height: 16px; background: #3e464e; flex-shrink: 0; }
+.lang-flags { position: fixed; top: 10px; right: 20px; z-index: 101; display: flex; gap: 8px; }
+.lang-flags a { font-size: 22px; border-bottom: none; opacity: 0.5; transition: opacity 0.2s; line-height: 1; }
+.lang-flags a:hover { background: none; opacity: 0.8; }
+.lang-flags a.active { opacity: 1; }
+
+.timeline-entry { padding: 8px 0; border-bottom: 1px solid #343c42; display: flex; gap: 16px; font-size: 14px; }
+.timeline-date { color: #d4a054; font-family: 'SF Mono', monospace; font-size: 12px; white-space: nowrap; min-width: 100px; }
+.timeline-text { color: #c0c0c0; }
+
+.changelog-entry { padding: 6px 0; font-size: 13px; color: #b0b0b0; border-bottom: 1px solid #343c42; }
+.changelog-entry .cl-date { color: #d4a054; font-family: 'SF Mono', monospace; font-size: 12px; }
+
+footer { padding: 44px 0; text-align: center; color: #b0b0b0; font-size: 13px; }
+footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
+
+@media (max-width: 600px) {
+    header h1 { font-size: 32px; }
+    .stats-row { gap: 16px; }
+    .stats-row .num { font-size: 20px; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .arch-zaal { grid-template-columns: 1fr; }
+    .architecture { padding: 20px; }
+    .pipeline { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav" id="section-nav">
+    <div class="sticky-nav-inner">
+        <a href="#story">Verhaal</a>
+        <a href="#architecture">Architectuur</a>
+        <a href="#pipeline">Pipeline</a>
+        <div class="nav-divider"></div>
+        <a href="#alexandrie">Alexandri&euml;</a>
+        <a href="#shelf-keying">Shelf-Keying</a>
+        <a href="#results">Resultaten</a>
+        <div class="nav-divider"></div>
+        <a href="#timeline">Tijdlijn</a>
+        <a href="#changelog">Log</a>
+    </div>
+</nav>
+
+<div class="lang-flags">
+    <a href="index.html" title="English">&#127468;&#127463;</a>
+    <a href="index-nl.html" class="active" title="Nederlands">&#127475;&#127473;</a>
+</div>
+
+<header>
+    <div class="container">
+        <h1>Mouseion OS</h1>
+        <p class="intro">Drieentwintig eeuwen geleden deden vijftig geleerden in Alexandri&euml; wat niemand eerder had gedaan: ze lazen alles, kruisten alles, en bouwden de eerste catalogus van menselijke kennis. Hun instituut heette het <a href="https://nl.wikipedia.org/wiki/Mouseion">Mouseion</a> &mdash; Grieks voor "zetel van de Muzen". Mouseion OS doet hetzelfde &mdash; maar de geleerden zijn software, en de bibliotheek brandt nooit af.</p>
+        <div class="stats-row">
+            <div class="stat"><div class="num">1.263</div><div class="label">Boeken</div></div>
+            <div class="stat"><div class="num">163</div><div class="label">Bronnen verwerkt</div></div>
+            <div class="stat"><div class="num">13.757</div><div class="label">Chunks ge&iuml;ndexeerd</div></div>
+            <div class="stat"><div class="num">13.124</div><div class="label">Entiteiten ge&euml;xtraheerd</div></div>
+            <div class="stat"><div class="num">2.575</div><div class="label">Claims in kaart</div></div>
+        </div>
+        <p class="author-line">Gebouwd door <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+    </div>
+</header>
+
+<div class="adagium">
+    <div class="container">
+        <div class="adagium-label">Kernthese</div>
+        <p class="adagium-text">
+            Elk boek kan <strong>zichzelf lezen</strong>.<br>
+            En elk boek op de plank maakt elk ander boek <strong>slimmer</strong>.
+        </p>
+    </div>
+</div>
+
+<!-- VERHAAL -->
+
+<section id="story">
+    <div class="container">
+        <h2>Hoe het begon</h2>
+
+        <p>Ik had net het <a href="https://nl.wikipedia.org/wiki/MI5">MI5</a>-boek van <a href="https://en.wikipedia.org/wiki/Christopher_Andrew_(historian)">Christopher Andrew</a> gedownload. Duizend pagina's over de geschiedenis van de Britse geheime dienst. <a href="https://nl.wikipedia.org/wiki/James_Gleick">James Gleick</a>'s <em>The Information</em> lag op de plank. En ergens op mijn server draaide sinds een paar weken een pipeline die WO2-dossiers doorploegt op zoek naar namen, data en tegenspraken.</p>
+
+        <p>Drie bronnen. Drie totaal verschillende werelden. Maar in mijn hoofd kruisten ze voortdurend.</p>
+
+        <p><a href="https://nl.wikipedia.org/wiki/Claude_Shannon">Shannon</a>, de vader van informatietheorie, leefde in dezelfde tijd als de MI5-officieren uit Andrews boek. De oorlogsinlichtingendiensten gebruikten dezelfde principes van codering en ruis die Shannon wiskundig zou beschrijven. En mijn onderzoek naar het <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a> probeerde te begrijpen hoe dezelfde werkelijkheid er anders uitziet afhankelijk van welke lens je gebruikt.</p>
+
+        <p>Ik dacht: wat als ik al die bronnen niet alleen lees, maar ze elkaar laat lezen?</p>
+
+        <blockquote>Ik noemde het Mouseion, naar het Mouseion van Alexandri&euml; &mdash; het onderzoeksinstituut bij de beroemde bibliotheek. Niet de opslag was bijzonder, maar dat er mensen zaten die de boeken lazen en kruisten.</blockquote>
+
+        <div class="marker">Het idee is simpel</div>
+
+        <p>Stop een boek in het systeem, en het systeem leest het. Het haalt er alle personen uit, alle organisaties, alle data, alle bronvermeldingen, alle begrippen. En dan kruist het die met alles wat er al in zit.</p>
+
+        <p>Shannon duikt op in Gleick. Maar ook in <a href="https://nl.wikipedia.org/wiki/Gregory_Bateson">Bateson</a>. <a href="https://nl.wikipedia.org/wiki/Bell_Labs">Bell Labs</a> verschijnt in drie bronnen die niets met elkaar te maken lijken te hebben. Het woord "informatie" betekent iets anders bij Shannon (een wiskundige grootheid) dan bij MI5 (intelligence) dan bij <a href="https://nl.wikipedia.org/wiki/Edmund_Husserl">Husserl</a> (intentioneel bewustzijn). Dat verschil wordt zichtbaar.</p>
+
+        <div class="marker">Zeven functies, &eacute;&eacute;n systeem</div>
+
+        <p>Elk onderdeel bestaat als losstaande tool of academisch concept. Microsoft heeft GraphRAG voor entity extraction. Stanford onderzoekt semantische verandering over tijd. Het platform nodegoat bouwt tijdlijnen voor historisch onderzoek. Maar niemand heeft het gecombineerd tot &eacute;&eacute;n persoonlijk onderzoeksinstrument dat boeken behandelt als archieven, cross-domein conceptmigratie traceert, en zijn eigen lexicon opbouwt uit de structuur die auteurs al hebben aangebracht.</p>
+
+        <p>De bouwstenen bestaan. Het gebouw niet. Tot nu.</p>
+
+        <div class="cluster">
+            <a href="https://world.hey.com/martijnaslander/mouseion-de-zelflezende-bibliotheek-cf0b30c1">Mouseion: De Zelflezende Bibliotheek</a>
+        </div>
+    </div>
+</section>
+
+<!-- ARCHITECTUUR -->
+
+<section id="architecture">
+    <div class="container">
+        <h2>Vier zalen en een buizenpost</h2>
+
+        <p>Het oorspronkelijke Mouseion van Alexandri&euml; had een peripatos (overdekte wandelgang), een exedra (discussiehal), een oikos (eetzaal) en de beroemde bibliotheek. MOS heeft vier zalen en een verbindingslaag die door alles heen loopt &mdash; de Pinakes Buizenpost, vernoemd naar de catalogus van <a href="alexandrie/callimachus.html">Callimachus</a>, het eerste bibliotheekclassificatiesysteem van het Westen.</p>
+
+        <div class="architecture">
+            <div class="arch-zaal">
+                <div class="arch-room">
+                    <div class="room-name">Bibliotheek</div>
+                    <div class="room-desc">Wat anderen schreven. Boeken, papers, artikelen, archieven. 163 bronnen, 13.757 chunks, doorzoekbaar.</div>
+                </div>
+                <div class="arch-room">
+                    <div class="room-name">Studeerkamer</div>
+                    <div class="room-desc">Mijn syntheses. Research-kaarten die inzichten combineren over bronnen heen. 39 kennisdocumenten en groeiend.</div>
+                </div>
+                <div class="arch-room">
+                    <div class="room-name">Archiefkelder</div>
+                    <div class="room-desc">Ruwe datasets. WO2-dossiers, OCR-dumps, vrijgegeven documenten. 1,1 GB en groeiend.</div>
+                </div>
+                <div class="arch-room">
+                    <div class="room-name">Exedra</div>
+                    <div class="room-desc">Lopend denkwerk. Kantelmomenten, scholia, het redeneerlogboek. Waar denken gebeurt v&oacute;&oacute;r het kennis wordt.</div>
+                </div>
+            </div>
+            <div class="arch-buizenpost">Pinakes Buizenpost &mdash; de bedrading tussen de zalen, geen zaal op zich</div>
+        </div>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Vijf rollen</h3>
+
+        <p>Het historische Mouseion had geleerden met verschillende functies. MOS heeft vijf rollen, elk vernoemd naar een Alexandrijnse traditie:</p>
+
+        <table class="roles-table">
+            <tr><th>Rol</th><th>Functie</th><th>Traditie</th></tr>
+            <tr><td>Bibliothecaris</td><td>Intake, catalogiseren, bewaken</td><td><a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a></td></tr>
+            <tr><td>Kruiser</td><td>Verbinden, myeliniseren, patronen vinden</td><td>Callimachus' Pinakes</td></tr>
+            <tr><td>Criticus</td><td>Zekerheidslagen, bronkritiek</td><td>De obelos</td></tr>
+            <tr><td>Scholiast</td><td>Kantelmomenten vastleggen, marge-aantekeningen</td><td>Alexandrijnse scholia</td></tr>
+            <tr><td>Ploi</td><td>Naar buiten kijken, binnenhalen, actueel houden</td><td>Ptoleme&iuml;sche havenpraktijk</td></tr>
+        </table>
+
+        <p>De AI-bibliothecaris van mijn Mouseion heet <strong style="color: #fff;">Cal</strong> &mdash; vernoemd naar <a href="alexandrie/callimachus.html">Callimachus van Cyrene</a> (ca. 310&ndash;240 v.Chr.), de geleerde die de Pinakes bouwde, de eerste bibliotheekcatalogus van het Westen. Callimachus was niet de hoofdbibliothecaris &mdash; dat was <a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a>. Hij was iets interessanters: de man die besloot hoe alles georganiseerd moest worden. Hij bedacht classificatie op genre, alfabetische ordening op auteur, en het idee dat elke vermelding metadata moest dragen: titel, geboorteplaats, leraar, aantal regels, openingswoorden. Drieentwintig eeuwen voor <a href="https://nl.wikipedia.org/wiki/Dublin_Core">Dublin Core</a> schreef Callimachus de spec.</p>
+        <p>Cal doet hetzelfde in MOS. Als een nieuwe bron het systeem binnenkomt, beslist Cal waar het heen gaat, wat eruit ge&euml;xtraheerd wordt, hoe het verbindt met wat er al is. Tom kijkt naar binnen &mdash; naar Martijns leven. Cal kijkt naar buiten &mdash; naar kennis over de wereld. Samen zijn ze de twee ogen van het systeem.</p>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Drie denkgereedschappen uit Alexandri&euml;</h3>
+
+        <p>De Alexandrijnse geleerden sloegen niet alleen kennis op. Ze bedachten methoden om er&oacute;ver na te denken die 2.300 jaar later nog steeds werken. MOS gebruikt er drie als kernoperaties:</p>
+
+        <p><strong style="color: #fff;"><a href="https://nl.wikipedia.org/wiki/Obelus">Obelos</a></strong> &mdash; <em>"Hoe zeker ben ik hiervan?"</em><br>
+        <a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a> zette een klein horizontaal streepje naast regels in Homerus die hij verdacht vond. Hij verwijderde ze niet &mdash; hij markeerde ze. Dat ene gebaar bedacht bronkritiek. In MOS werd de obelos twaalf zekerheidslagen. Elke bewering draagt zijn twijfel. Niets wordt vernietigd, alles wordt gemarkeerd.</p>
+
+        <p><strong style="color: #fff;"><a href="https://nl.wikipedia.org/wiki/Scholion">Scholion</a></strong> &mdash; <em>"Wat dacht ik toen ik dit las?"</em><br>
+        Alexandrijnse geleerden schreven commentaar in de marge, nooit in de tekst zelf. Het denken over de bron bleef gescheiden van de bron. De tekst is heilig; de marge is van jou. In MOS werd het scholion de Exedra &mdash; het redeneerlogboek waar kantelmomenten, twijfels en verbindingen worden vastgelegd. De gedachte die je kruist tijdens het lezen van hoofdstuk zeven kan waardevoller zijn dan hoofdstuk zeven zelf.</p>
+
+        <p><strong style="color: #fff;">Ploi</strong> &mdash; <em>"Wat bestaat er dat ik nog niet heb?"</em><br>
+        De <a href="https://nl.wikipedia.org/wiki/Ptolemae%C3%ABn">Ptolemee&euml;n</a> hadden een havenbeleid: elk schip dat Alexandri&euml; binnenvoer werd zijn boeken afgenomen. De bibliotheek kopieerde ze en gaf de originelen terug &mdash; soms. In MOS is Ploi de acquisitielaag: actief naar buiten kijken, kennis binnenhalen. Ik heb Cal twee bibliotheekpasjes gegeven &mdash; een van de openbare bibliotheek, een voor open archieven. Cal leent boeken, haalt ze op, leest ze, en brengt ze terug. De haven van Alexandri&euml; is nu een gemeentebibliotheek in Haarlem en een digitaal archiefportaal.</p>
+    </div>
+</section>
+
+<!-- PIPELINE -->
+
+<section id="pipeline">
+    <div class="container">
+        <h2>De Pipeline</h2>
+
+        <p>Elke bron &mdash; boek, artikel, dossier &mdash; gaat door dezelfde negenstaps-pipeline. Het systeem breekt het in chunks, indexeert ze voor full-text search, en extraheert vervolgens vier lagen:</p>
+
+        <div class="pipeline">
+            <div class="pipeline-step"><div class="step-num">1</div><div class="step-name">Upload</div><div class="step-desc">epub, pdf, scan</div></div>
+            <div class="pipeline-step"><div class="step-num">2</div><div class="step-name">Ingest</div><div class="step-desc">platte tekst + chunks</div></div>
+            <div class="pipeline-step"><div class="step-num">3</div><div class="step-name">FTS Index</div><div class="step-desc">full-text search</div></div>
+            <div class="pipeline-step"><div class="step-num">4</div><div class="step-name">Extractie</div><div class="step-desc">entiteiten, concepten, claims, werken</div></div>
+            <div class="pipeline-step"><div class="step-num">5</div><div class="step-name">Kruisen</div><div class="step-desc">matchen tegen alle bestaande bronnen</div></div>
+            <div class="pipeline-step"><div class="step-num">6</div><div class="step-name">Goedkeuring</div><div class="step-desc">menselijke review</div></div>
+        </div>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Wat wordt ge&euml;xtraheerd</h3>
+
+        <p><strong style="color: #fff;">Personen met rol en context</strong> &mdash; niet alleen "Shannon" maar "Claude Shannon, wiskundige, Bell Labs, informatietheorie". Zekerheidslaag 6: 95%.</p>
+        <p><strong style="color: #fff;">Concepten met betekenis</strong> &mdash; wat de auteur bedoelt met "entropie", "intelligence", "informatie". Getraceerd over domeinen. Zekerheidslaag 6: 90%.</p>
+        <p><strong style="color: #fff;">Stellingen van de auteur</strong> &mdash; beweringen, geen samenvattingen. Wat de auteur als waar presenteert. Zekerheidslaag 6: 90%.</p>
+        <p><strong style="color: #fff;">Geciteerde werken</strong> &mdash; titel, auteur, jaar. Het citatienetwerk, ge&euml;xtraheerd uit niet-academische bronnen. Zekerheidslaag 6: 99%.</p>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Twaalf zekerheidslagen</h3>
+
+        <p>Elk stuk kennis in MOS draagt een zekerheidslaag, van 1 (wiskundig bewezen) tot 12 (onbekend / open vraag). De Criticus wijst de laag toe. De Fact-Gate beslist of het wordt opgeslagen, geverifieerd, of geparkeerd in de Exedra.</p>
+
+        <div style="font-size: 13px; line-height: 2.2; margin: 16px 0;">
+            <span style="color: #5a9;">1</span> Wiskundig bewezen &mdash;
+            <span style="color: #5a9;">2</span> Fysisch gemeten, gerepliceerd &mdash;
+            <span style="color: #5a9;">3</span> Wetenschappelijke consensus &mdash;
+            <span style="color: #5a9;">4</span> Peer-reviewed, niet gerepliceerd &mdash;
+            <span style="color: #7ab;">5</span> Meerdere betrouwbare bronnen &mdash;
+            <span style="color: #7ab;">6</span> E&eacute;n betrouwbare bron &mdash;
+            <span style="color: #db8;">7</span> Journalistiek &mdash;
+            <span style="color: #db8;">8</span> Inferentie uit bronnen &mdash;
+            <span style="color: #b77;">9</span> E&eacute;n bron, niet geverifieerd &mdash;
+            <span style="color: #b77;">10</span> Anekdotisch &mdash;
+            <span style="color: #999;">11</span> Speculatief &mdash;
+            <span style="color: #999;">12</span> Onbekend
+        </div>
+    </div>
+</section>
+
+<!-- SHELF-KEYING -->
+
+<section id="shelf-keying">
+    <div class="container">
+        <h2>Shelf-Keying</h2>
+
+        <p>Het interessantste dat we ontdekten is dat je geen kunstmatige intelligentie nodig hebt om een boek te lezen. Een goed non-fictieboek leest zichzelf.</p>
+
+        <p>Hoe? Een boek heeft een index &mdash; letterlijk een lijst van alle belangrijke personen, plaatsen en begrippen, met paginanummers erbij. De auteur heeft het werk al gedaan. De bibliografie achterin is het citatienetwerk, kant-en-klaar. De inhoudsopgave vertelt je de structuur. Voetnoten markeren de bronvermeldingen.</p>
+
+        <p>We noemden dit <strong style="color: #fff;">Shelf-Keying</strong>: elk boek dat je toevoegt maakt alle andere boeken slimmer, omdat de sleutels van boek A ook op boek B worden geprobeerd.</p>
+
+        <p>De woordgrap is gratis: <em>shelf</em> (schap) klinkt bijna als <em>self</em> (zelf). Het schap dat zichzelf leest.</p>
+
+        <div class="marker">De vingerafdruk</div>
+
+        <p>Hoe weet je dat de "Shannon" in boek A dezelfde is als de "C.E. Shannon" in boek B? Niet alleen aan de naam, maar aan het gezelschap. Als Shannon voorkomt naast "entropie", "Bell Labs" en "bit", is het de wiskundige. Als Shannon voorkomt naast "rivier", "Ierland" en "vissen", is het de rivier.</p>
+
+        <p>Elke entiteit bouwt een vingerafdruk op: de woorden die in zijn buurt voorkomen. Met elk boek wordt die vingerafdruk scherper. Na vijf boeken is een false match bijna onmogelijk.</p>
+    </div>
+</section>
+
+<!-- ALEXANDRIE -->
+
+<section id="alexandrie">
+    <div class="container">
+        <h2>Vernoemd naar Alexandri&euml;</h2>
+
+        <p>Het Mouseion (Grieks: "zetel van de Muzen") was een koninklijke onderzoeksinstelling in Alexandri&euml;, gesticht rond 280 v.Chr. door <a href="https://nl.wikipedia.org/wiki/Ptolemaeus_I_Soter">Ptolemaeus I Soter</a>. Geen museum in moderne zin &mdash; een levende onderzoeksgemeenschap, vergelijkbaar met het <a href="https://nl.wikipedia.org/wiki/Institute_for_Advanced_Study">Institute for Advanced Study</a> in Princeton.</p>
+
+        <p>30 tot 50 geleerden woonden er. Salaris van de staat, belastingvrij. Geen onderwijsplicht &mdash; vrij onderzoek. Gemeenschappelijk bezit, gezamenlijke maaltijden. Disciplines: wiskunde (<a href="https://nl.wikipedia.org/wiki/Euclides">Euclides</a>), astronomie, geneeskunde (<a href="https://en.wikipedia.org/wiki/Herophilus">Herophilus</a> deed de eerste dissecties), geografie (<a href="https://nl.wikipedia.org/wiki/Eratosthenes">Eratosthenes</a> berekende de omtrek van de Aarde), literatuurkritiek, mechanica.</p>
+
+        <p><strong style="color: #fff;">Callimachus</strong> (ca. 310&ndash;240 v.Chr.) maakte de Pinakes: 120 boekrollen, de eerste bibliotheekcatalogus van het Westen. Indeling: klasse, subgenre, alfabetisch op auteur. Per vermelding: titel, auteur, geboorteplaats, vader, opleiding, aantal regels, openingswoorden. Het model bleef eeuwen dominant.</p>
+
+        <blockquote>De Pinakes zijn geen vijfde zaal maar de buizenpost tussen de vier zalen. Geen eigen adres &mdash; de verbinding die overal doorheen loopt.</blockquote>
+
+        <p>Elk concept in MOS verwijst naar een Alexandrijnse traditie. De <a href="alexandrie/obelos.html">obelos</a> (het kritische merkteken) werd ons zekerheidslagensysteem. Het <a href="alexandrie/scholion.html">scholion</a> (marge-aantekening) werd onze kantelmomentvastlegging. <a href="alexandrie/ploi.html">Ploi</a> (de havenpraktijk om boeken van schepen in beslag te nemen om ze te kopi&euml;ren) werd onze acquisitielaag.</p>
+
+        <div class="cluster">
+            <a href="alexandrie/mouseion.html">Het Mouseion van Alexandri&euml;</a>
+            <a href="alexandrie/callimachus.html">Callimachus en de Pinakes</a>
+            <a href="alexandrie/obelos.html">De Obelos-traditie</a>
+            <a href="alexandrie/scholion.html">Het Scholion</a>
+            <a href="alexandrie/ploi.html">Ploi &mdash; Kennisacquisitie</a>
+            <a href="alexandrie/exedra.html">De Exedra</a>
+        </div>
+    </div>
+</section>
+
+<!-- RESULTATEN -->
+
+<section id="results">
+    <div class="container">
+        <h2>Wat het vond</h2>
+
+        <div class="marker">Eerste test: Defence of the Realm</div>
+
+        <p><a href="https://en.wikipedia.org/wiki/The_Defence_of_the_Realm">Christopher Andrews duizend pagina's tellende MI5-geschiedenis</a> was het eerste boek door de pipeline. Het systeem extraheerde duizenden entiteiten, bouwde een tijdlijn van 1909 tot 2009, en begon ze te kruisen met WO2-dossiers die al in mijn database zaten.</p>
+
+        <p>De kruisingen onthulden dingen die geen van beide bronnen alleen kon laten zien. Namen die in MI5-dossiers voorkwamen maar afwezig waren in het Nederlandse standaardwerk over de Tweede Wereldoorlog. Data die elkaar tegenspraken tussen bronnen &mdash; geen fouten, maar onderzoeksvragen. Patronen van weglating die pas zichtbaar werden als je over alles tegelijk kon zoeken.</p>
+
+        <div class="marker">WOZ: 1,8 miljoen observaties</div>
+
+        <p>Het <a href="https://martijnaslander.github.io/Groninger-Oorlogspuzzels/index.html">WO-II-OS</a> project &mdash; het Life Lens System toegepast op de Tweede Wereldoorlog &mdash; bevat nu 1,8 miljoen observaties, 1 miljoen unieke personen, en 196.000 bevestigd door twee of meer onafhankelijke bronnen. MOS is de leeslaag eronder: het verwerkt de archieven, extraheert de entiteiten, en voedt ze aan de kruisingsmotor.</p>
+
+        <div class="marker">Zeven scoops</div>
+
+        <p>Zeven vondsten die niet in de secundaire literatuur staan. Niet omdat niemand keek, maar omdat niemand over alle bronnen tegelijk kon zoeken. De details zijn gedocumenteerd maar nog niet publiek.</p>
+    </div>
+</section>
+
+<!-- ONDERDEEL VAN LLS -->
+
+<section id="lls">
+    <div class="container">
+        <h2>Onderdeel van het Life Lens System</h2>
+
+        <p>Mouseion OS is de bibliotheek binnen het <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a>. Waar ThetaOS de verwerkte kennis bewaart (kenniskaarten, datakaarten, 560.000 records), bewaart MOS het ruwe bronmateriaal en de extracties eruit.</p>
+
+        <p>Tom kijkt naar binnen &mdash; naar Martijns leven. Cal kijkt naar buiten &mdash; naar kennis over de wereld. Samen vormen ze een compleet systeem: persoonlijke data gekruist met bronmateriaal, geleefde ervaring gekruist met wat anderen hebben geschreven.</p>
+
+        <p>MOS is de laag v&oacute;&oacute;r het denken. ThetaOS is de laag erna.</p>
+    </div>
+</section>
+
+<!-- TIJDLIJN -->
+
+<section id="timeline">
+    <div class="container">
+        <h2>Tijdlijn</h2>
+
+        <div class="timeline-entry"><span class="timeline-date">27 apr 2026</span><span class="timeline-text">Mouseion OS site gelanceerd.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">25 apr 2026</span><span class="timeline-text">Alexandrijnse naamgeving: Mouseion, Callimachus, Pinakes, Obelos, Scholion, Ploi, Exedra.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">25 apr 2026</span><span class="timeline-text">Cal Blauwdruk: MOS ontworpen als onderzoeksinstelling. Vier zalen, vijf rollen, twaalf zekerheidslagen.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">21 apr 2026</span><span class="timeline-text">Rijke Boekextractie experiment: vier ontbrekende lagen ge&iuml;dentificeerd en getest.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">17 apr 2026</span><span class="timeline-text">Epistemologische Extractie methodekaart geschreven.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">15 apr 2026</span><span class="timeline-text">Shelf-Keying methode gedocumenteerd. Ingest pipeline ontwerp definitief.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">14 apr 2026</span><span class="timeline-text">WOZ eerste vulling: BS-verslagen + OVCG + MI5 gekruist. 8 dossiers, 390 pagina's, 753 claims.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">13 apr 2026</span><span class="timeline-text">Eerste test: Defence of the Realm (Christopher Andrew) door de pipeline.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">13 apr 2026</span><span class="timeline-text">Concept "De Zelflezende Bibliotheek" kristalliseert. Naam bedacht.</span></div>
+    </div>
+</section>
+
+<!-- CHANGELOG -->
+
+<section id="changelog">
+    <div class="container">
+        <h2>Changelog</h2>
+        <div class="changelog-entry"><span class="cl-date">2026-04-27</span> &mdash; Site gelanceerd. Engels en Nederlands. Architectuur, pipeline, Alexandri&euml;, tijdlijn.</div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>Mouseion OS &mdash; Gebouwd door <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+        <p style="margin-top: 8px;">Onderdeel van het <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a></p>
+    </div>
+</footer>
+
+<script>
+document.querySelectorAll('.sticky-nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+</script>
+<script data-goatcounter="https://mousion-os.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

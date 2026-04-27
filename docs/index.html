@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mouseion OS — The Self-Reading Library</title>
+<meta name="description" content="A self-reading library that extracts entities, builds timelines, traces concept migration, and detects contradictions across sources. Built by Martijn Aslander.">
+<meta property="og:title" content="Mouseion OS — The Self-Reading Library">
+<meta property="og:description" content="What if every book you owned could read itself — and read every other book on the shelf?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://martijnaslander.github.io/mouseion-os/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Mouseion OS",
+  "url": "https://martijnaslander.github.io/mouseion-os/",
+  "description": "Mouseion OS (MOS) is a self-reading library: a personal research instrument that doesn't just store source material — it reads it. It extracts entities, builds timelines, traces concept migration across domains, and detects contradictions between sources. Named after the Mouseion of Alexandria.",
+  "author": {
+    "@type": "Person",
+    "name": "Martijn Aslander",
+    "sameAs": [
+      "https://orcid.org/0009-0004-2344-0620",
+      "https://www.linkedin.com/in/aslander/",
+      "https://martijnaslander.github.io/life-lens-system/"
+    ],
+    "jobTitle": "Information Architect, Author, Speaker"
+  }
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Mouseion OS Journal" href="blog/feed.xml">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Verdana, system-ui, Helvetica, sans-serif;
+    background: #2c3338;
+    color: #eee;
+    line-height: 1.85;
+    font-size: 19px;
+    padding-top: 48px;
+}
+a { color: #eee; text-decoration: none; border-bottom: 1px solid #777; padding-bottom: 1px; }
+a:hover { color: #fff; background-color: #3e464e; border-color: #3e464e; }
+.container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+/* Accent: warm amber instead of LLS blue-grey */
+.accent { color: #d4a054; }
+
+header {
+    padding: 40px 0 40px;
+    border-bottom: 1px solid #3e464e;
+    text-align: center;
+}
+.lang-toggle { display: inline-flex; gap: 4px; margin-bottom: 24px; }
+.lang-toggle a { display: inline-block; padding: 6px 12px; font-size: 18px; border: 2px solid transparent; border-radius: 6px; cursor: pointer; background: rgba(44,51,56,0.9); line-height: 1; }
+.lang-toggle a:hover { border-color: #d4a054; background: rgba(44,51,56,0.9); border-bottom: 2px solid #d4a054; }
+.lang-toggle a.active { border-color: #fff; background: rgba(44,51,56,0.9); }
+header h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+    line-height: 1.2;
+}
+header .intro {
+    font-size: 20px;
+    color: #e0e0e0;
+    margin-bottom: 28px;
+}
+.stats-row {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+.stats-row .stat { font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+.stats-row .num { font-size: 28px; font-weight: 700; color: #fff; }
+.stats-row .label { font-size: 12px; color: #c0c0c0; text-transform: uppercase; letter-spacing: 1px; }
+.author-line { font-size: 14px; color: #c0c0c0; }
+
+section { padding: 44px 0; border-bottom: 1px solid #3e464e; }
+section h2 { font-size: 32px; color: #fff; margin-bottom: 20px; letter-spacing: -0.5px; }
+p { margin-bottom: 14px; }
+
+/* Adagium */
+.adagium {
+    padding: 48px 0 44px;
+    text-align: center;
+    border-bottom: 1px solid #3e464e;
+}
+.adagium-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #d4a054;
+    margin-bottom: 18px;
+}
+.adagium-text {
+    font-size: 24px;
+    color: #fff;
+    line-height: 2;
+    font-style: italic;
+    margin-bottom: 0;
+}
+.adagium-text strong {
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* Pull quotes */
+blockquote {
+    margin: 28px 0;
+    padding: 0 0 0 20px;
+    border-left: 3px solid #d4a054;
+    font-size: 21px;
+    color: #fff;
+    font-style: italic;
+    line-height: 1.7;
+}
+
+/* Featured cards */
+.featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+}
+.featured-card {
+    background: #343c42;
+    border: 1px solid #3e464e;
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 0.2s;
+}
+.featured-card:hover { border-color: #d4a054; }
+.featured-card a { border-bottom: none; }
+.featured-card a:hover { background: none; }
+.featured-card .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    display: block;
+    margin-bottom: 6px;
+    border-bottom: none;
+}
+.featured-card .card-desc {
+    font-size: 13px;
+    color: #c0c0c0;
+    line-height: 1.6;
+}
+.featured-card .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    color: #d4a054;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+/* Story markers */
+.marker {
+    font-family: -apple-system, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #d4a054;
+    letter-spacing: 0.5px;
+    margin-top: 44px;
+    margin-bottom: 12px;
+}
+
+/* Blog clusters */
+.cluster {
+    margin: 12px 0 24px;
+    padding-left: 16px;
+    border-left: 2px solid #3e464e;
+}
+.cluster a {
+    display: block;
+    font-size: 14px;
+    color: #c0c0c0;
+    border-bottom: none;
+    padding: 3px 0;
+}
+.cluster a:hover { color: #fff; background: none; border-bottom: none; }
+
+/* Architecture diagram */
+.architecture {
+    background: #343c42;
+    border: 1px solid #3e464e;
+    border-radius: 10px;
+    padding: 36px;
+    margin: 28px 0;
+    font-family: 'SF Mono', 'Menlo', monospace;
+}
+.arch-zaal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.arch-room {
+    border: 1px solid #4a5560;
+    border-radius: 8px;
+    padding: 16px;
+    background: #3a4248;
+}
+.arch-room .room-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+}
+.arch-room .room-desc {
+    font-size: 12px;
+    color: #b0b0b0;
+}
+.arch-buizenpost {
+    text-align: center;
+    padding: 10px;
+    color: #d4a054;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px dashed #d4a054;
+    border-radius: 6px;
+}
+
+/* Rollen tabel */
+.roles-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 20px 0;
+}
+.roles-table th {
+    padding: 10px;
+    color: #d4a054;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    border-bottom: 2px solid #3e464e;
+}
+.roles-table td {
+    padding: 10px;
+    border-bottom: 1px solid #3e464e;
+    color: #c0c0c0;
+}
+.roles-table td:first-child { color: #fff; font-weight: 600; }
+
+/* Pipeline */
+.pipeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 28px 0;
+}
+.pipeline-step {
+    background: #3a4248;
+    border: 1px solid #4a5560;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+}
+.pipeline-step .step-num { color: #d4a054; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.pipeline-step .step-name { color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.pipeline-step .step-desc { color: #b0b0b0; font-size: 12px; }
+.pipeline-arrow { display: none; }
+
+/* Top nav - always visible */
+.sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(44,51,56,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #3e464e;
+}
+.sticky-nav-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+    font-size: 14px;
+    position: relative;
+}
+.sticky-nav a { color: #b0b0b0; border-bottom: none; white-space: nowrap; }
+.sticky-nav a:hover { color: #fff; background: none; }
+.nav-divider { width: 1px; height: 16px; background: #3e464e; flex-shrink: 0; }
+.lang-flags {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    z-index: 101;
+    display: flex;
+    gap: 8px;
+}
+.lang-flags a {
+    font-size: 22px;
+    border-bottom: none;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    line-height: 1;
+}
+.lang-flags a:hover { background: none; opacity: 0.8; }
+.lang-flags a.active { opacity: 1; }
+
+/* Timeline */
+.timeline-entry {
+    padding: 8px 0;
+    border-bottom: 1px solid #343c42;
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+}
+.timeline-date { color: #d4a054; font-family: 'SF Mono', monospace; font-size: 12px; white-space: nowrap; min-width: 100px; }
+.timeline-text { color: #c0c0c0; }
+
+/* Changelog */
+.changelog-entry {
+    padding: 6px 0;
+    font-size: 13px;
+    color: #b0b0b0;
+    border-bottom: 1px solid #343c42;
+}
+.changelog-entry .cl-date { color: #d4a054; font-family: 'SF Mono', monospace; font-size: 12px; }
+
+footer {
+    padding: 44px 0;
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 13px;
+}
+footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
+
+@media (max-width: 600px) {
+    header h1 { font-size: 32px; }
+    .stats-row { gap: 16px; }
+    .stats-row .num { font-size: 20px; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .arch-zaal { grid-template-columns: 1fr; }
+    .architecture { padding: 20px; }
+    .pipeline { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav" id="section-nav">
+    <div class="sticky-nav-inner">
+        <a href="#story">Story</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#pipeline">Pipeline</a>
+        <div class="nav-divider"></div>
+        <a href="#alexandrie">Alexandria</a>
+        <a href="#shelf-keying">Shelf-Keying</a>
+        <a href="#results">Results</a>
+        <div class="nav-divider"></div>
+        <a href="#timeline">Timeline</a>
+        <a href="#changelog">Log</a>
+    </div>
+</nav>
+
+<div class="lang-flags">
+    <a href="index.html" class="active" title="English">&#127468;&#127463;</a>
+    <a href="index-nl.html" title="Nederlands">&#127475;&#127473;</a>
+</div>
+
+<header>
+    <div class="container">
+        <h1>Mouseion OS</h1>
+        <p class="intro">Twenty-three centuries ago, fifty scholars in Alexandria did what no one had done before: they read everything, crossed everything, and built the first catalogue of human knowledge. Their institute was called the <a href="https://en.wikipedia.org/wiki/Musaeum">Mouseion</a> &mdash; Greek for "seat of the Muses". Mouseion OS does the same &mdash; but the scholars are software, and the library never burns.</p>
+        <div class="stats-row">
+            <div class="stat"><div class="num">1,263</div><div class="label">Books</div></div>
+            <div class="stat"><div class="num">163</div><div class="label">Sources ingested</div></div>
+            <div class="stat"><div class="num">13,757</div><div class="label">Chunks indexed</div></div>
+            <div class="stat"><div class="num">13,124</div><div class="label">Entities extracted</div></div>
+            <div class="stat"><div class="num">2,575</div><div class="label">Claims mapped</div></div>
+        </div>
+        <p class="author-line">Built by <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+    </div>
+</header>
+
+<div class="adagium">
+    <div class="container">
+        <div class="adagium-label">Core thesis</div>
+        <p class="adagium-text">
+            Every book can <strong>read itself</strong>.<br>
+            And every book on the shelf makes every other book <strong>smarter</strong>.
+        </p>
+    </div>
+</div>
+
+<!-- STORY -->
+
+<section id="story">
+    <div class="container">
+        <h2>How It Started</h2>
+
+        <p>I had just downloaded <a href="https://en.wikipedia.org/wiki/Christopher_Andrew_(historian)">Christopher Andrew</a>'s thousand-page history of <a href="https://en.wikipedia.org/wiki/MI5">MI5</a>. <a href="https://en.wikipedia.org/wiki/James_Gleick">James Gleick</a>'s <em>The Information</em> was on the shelf. And somewhere on my server, a pipeline had been crawling World War II dossiers for a few weeks, looking for names, dates, and contradictions.</p>
+
+        <p>Three sources. Three completely different worlds. But in my head, they kept crossing.</p>
+
+        <p><a href="https://en.wikipedia.org/wiki/Claude_Shannon">Shannon</a>, the father of information theory, lived in the same era as the MI5 officers in Andrew's book. Wartime intelligence services used the same principles of coding and noise that Shannon would describe mathematically. And my research on the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a> was trying to understand how the same reality looks different depending on which lens you use.</p>
+
+        <p>I thought: what if I don't just read all these sources, but let them read each other?</p>
+
+        <blockquote>I named it Mouseion, after the Mouseion of Alexandria &mdash; the research institute attached to the famous library. It wasn't the storage that was special. It was that people sat there who read the books and crossed them.</blockquote>
+
+        <div class="marker">The idea is simple</div>
+
+        <p>Put a book into the system, and the system reads it. It extracts all persons, all organisations, all dates, all source references, all concepts. Then it crosses them with everything already in the database.</p>
+
+        <p>Shannon appears in Gleick. But also in <a href="https://en.wikipedia.org/wiki/Gregory_Bateson">Bateson</a>. <a href="https://en.wikipedia.org/wiki/Bell_Labs">Bell Labs</a> shows up in three sources that seem to have nothing to do with each other. The word "information" means something different in Shannon (a mathematical quantity) than in MI5 (intelligence) than in <a href="https://en.wikipedia.org/wiki/Edmund_Husserl">Husserl</a> (intentional consciousness). That difference becomes visible.</p>
+
+        <div class="marker">Seven functions, one system</div>
+
+        <p>Each component exists as a standalone tool or academic concept. Microsoft has GraphRAG for entity extraction. Stanford researches semantic change over time. The platform nodegoat builds timelines for historical research. But nobody has combined them into a personal research instrument that treats books as archives, traces concept migration across domains, and builds its own lexicon from the structure that authors have already provided.</p>
+
+        <p>The building blocks exist. The building doesn't. Until now.</p>
+
+        <div class="cluster">
+            <a href="https://world.hey.com/martijnaslander/mouseion-de-zelflezende-bibliotheek-cf0b30c1">Mouseion: De Zelflezende Bibliotheek <span style="color:#d4a054;font-size:11px;">(NL)</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- ARCHITECTURE -->
+
+<section id="architecture">
+    <div class="container">
+        <h2>Four Halls and a Pneumatic Post</h2>
+
+        <p>The original Mouseion of Alexandria had a peripatos (covered walkway), an exedra (discussion hall), an oikos (dining hall), and the famous library. MOS has four halls and a connection layer that runs through all of them &mdash; the Pinakes Pneumatic Post, named after <a href="alexandrie/callimachus.html">Callimachus</a>' catalogue, the first library classification system in the Western world.</p>
+
+        <div class="architecture">
+            <div class="arch-zaal">
+                <div class="arch-room">
+                    <div class="room-name">Library</div>
+                    <div class="room-desc">What others wrote. Books, papers, articles, archives. 163 sources, 13,757 chunks, full-text searchable.</div>
+                </div>
+                <div class="arch-room">
+                    <div class="room-name">Study</div>
+                    <div class="room-desc">My syntheses. Research cards that combine insights across sources. 39 knowledge documents and growing.</div>
+                </div>
+                <div class="arch-room">
+                    <div class="room-name">Archive Cellar</div>
+                    <div class="room-desc">Raw datasets. WO2 dossiers, OCR dumps, declassified documents. 1.1 GB and growing.</div>
+                </div>
+                <div class="arch-room">
+                    <div class="room-name">Exedra</div>
+                    <div class="room-desc">Work in progress. Turning points, scholia, the reasoning log. Where thinking happens before it becomes knowledge.</div>
+                </div>
+            </div>
+            <div class="arch-buizenpost">Pinakes Pneumatic Post &mdash; the wiring between the halls, not a hall itself</div>
+        </div>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Five Roles</h3>
+
+        <p>The historical Mouseion had scholars with distinct functions. MOS has five roles, each named after an Alexandrian tradition:</p>
+
+        <table class="roles-table">
+            <tr><th>Role</th><th>Function</th><th>Tradition</th></tr>
+            <tr><td>Librarian</td><td>Intake, catalogue, guard</td><td><a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a></td></tr>
+            <tr><td>Crosser</td><td>Connect, myelinate, find patterns</td><td>Callimachus' Pinakes</td></tr>
+            <tr><td>Critic</td><td>Certainty layers, source criticism</td><td>The obelos</td></tr>
+            <tr><td>Scholiast</td><td>Capture turning points, margin notes</td><td>Alexandrian scholia</td></tr>
+            <tr><td>Ploi</td><td>Look outward, bring in, keep current</td><td>Ptolemaic harbour practice</td></tr>
+        </table>
+
+        <p>The AI librarian of my Mouseion is called <strong style="color: #fff;">Cal</strong> &mdash; named after <a href="alexandrie/callimachus.html">Callimachus of Cyrene</a> (ca. 310&ndash;240 BCE), the scholar who built the Pinakes, the first library catalogue in the Western world. Callimachus wasn't the head librarian &mdash; that was <a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a>. He was something more interesting: the man who decided how to organise everything. He invented classification by genre, alphabetical ordering by author, and the idea that every entry should carry metadata: title, birthplace, teacher, number of lines, opening words. Twenty-three centuries before <a href="https://en.wikipedia.org/wiki/Dublin_Core">Dublin Core</a>, Callimachus wrote the spec.</p>
+        <p>Cal does the same thing in MOS. When a new source enters the system, Cal decides where it goes, what gets extracted, how it connects to what's already there. Tom looks inward &mdash; at Martijn's life. Cal looks outward &mdash; at knowledge about the world. Together they are the two eyes of the system.</p>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Three Thinking Tools from Alexandria</h3>
+
+        <p>The Alexandrian scholars didn't just store knowledge. They invented methods for thinking about it that are still in use 2,300 years later. MOS uses three of them as core operations:</p>
+
+        <p><strong style="color: #fff;"><a href="https://en.wikipedia.org/wiki/Obelus">Obelos</a></strong> &mdash; <em>"How certain am I of this?"</em><br>
+        <a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a> placed a small horizontal stroke next to lines in Homer that he suspected were not authentic. He didn't delete them &mdash; he marked them. That single gesture invented source criticism. In MOS, the obelos became twelve certainty layers. Every claim carries its doubt. Nothing is destroyed, everything is marked.</p>
+
+        <p><strong style="color: #fff;"><a href="https://en.wikipedia.org/wiki/Scholium">Scholion</a></strong> &mdash; <em>"What did I think when I read this?"</em><br>
+        Alexandrian scholars wrote comments in the margins, never in the text itself. The thinking about the source stayed separate from the source. The text is sacred; the margin is yours. In MOS, the scholion became the Exedra &mdash; the reasoning log where turning points, doubts, and connections are captured. The thought that crosses your mind while reading chapter seven may be more valuable than chapter seven itself.</p>
+
+        <p><strong style="color: #fff;">Ploi</strong> &mdash; <em>"What exists out there that I don't have yet?"</em><br>
+        The <a href="https://en.wikipedia.org/wiki/Ptolemaic_dynasty">Ptolemies</a> had a harbour policy: every ship entering Alexandria had its books confiscated. The library copied them, then returned the originals &mdash; sometimes. In MOS, Ploi is the acquisition layer: actively looking outward, bringing knowledge in. I gave Cal two library cards &mdash; one for the public library, one for open archives. Cal borrows books, picks them up, reads them, and returns them. The harbour of Alexandria is now a municipal library in Haarlem and a digital archive portal.</p>
+    </div>
+</section>
+
+<!-- PIPELINE -->
+
+<section id="pipeline">
+    <div class="container">
+        <h2>The Pipeline</h2>
+
+        <p>Every source &mdash; book, article, dossier &mdash; enters through the same nine-step pipeline. The system breaks it into chunks, indexes them for full-text search, and then extracts four layers:</p>
+
+        <div class="pipeline">
+            <div class="pipeline-step"><div class="step-num">1</div><div class="step-name">Upload</div><div class="step-desc">epub, pdf, scan</div></div>
+            <div class="pipeline-step"><div class="step-num">2</div><div class="step-name">Ingest</div><div class="step-desc">plain text + chunks</div></div>
+            <div class="pipeline-step"><div class="step-num">3</div><div class="step-name">FTS Index</div><div class="step-desc">full-text search</div></div>
+            <div class="pipeline-step"><div class="step-num">4</div><div class="step-name">Extract</div><div class="step-desc">entities, concepts, claims, works</div></div>
+            <div class="pipeline-step"><div class="step-num">5</div><div class="step-name">Cross</div><div class="step-desc">match against all existing sources</div></div>
+            <div class="pipeline-step"><div class="step-num">6</div><div class="step-name">Approve</div><div class="step-desc">human review</div></div>
+        </div>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">What gets extracted</h3>
+
+        <p><strong style="color: #fff;">Persons with role and context</strong> &mdash; not just "Shannon" but "Claude Shannon, mathematician, Bell Labs, information theory". Certainty layer 6: 95%.</p>
+        <p><strong style="color: #fff;">Concepts with meaning</strong> &mdash; what the author means by "entropy", "intelligence", "information". Traced across domains. Certainty layer 6: 90%.</p>
+        <p><strong style="color: #fff;">Claims by the author</strong> &mdash; assertions, not summaries. What the author states as true. Certainty layer 6: 90%.</p>
+        <p><strong style="color: #fff;">Cited works</strong> &mdash; title, author, year. The citation network, extracted from non-academic sources. Certainty layer 6: 99%.</p>
+
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Twelve certainty layers</h3>
+
+        <p>Every piece of knowledge in MOS carries a certainty layer, from 1 (mathematically proven) to 12 (unknown / open question). The Critic assigns the layer. The Fact-Gate decides whether to store, verify, or park in the Exedra.</p>
+
+        <div style="font-size: 13px; line-height: 2.2; margin: 16px 0;">
+            <span style="color: #5a9;">1</span> Mathematically proven &mdash;
+            <span style="color: #5a9;">2</span> Physically measured, replicated &mdash;
+            <span style="color: #5a9;">3</span> Scientific consensus &mdash;
+            <span style="color: #5a9;">4</span> Peer-reviewed, not replicated &mdash;
+            <span style="color: #7ab;">5</span> Multiple reliable sources &mdash;
+            <span style="color: #7ab;">6</span> One reliable source &mdash;
+            <span style="color: #db8;">7</span> Journalistic &mdash;
+            <span style="color: #db8;">8</span> Inference from sources &mdash;
+            <span style="color: #b77;">9</span> One source, unverified &mdash;
+            <span style="color: #b77;">10</span> Anecdotal &mdash;
+            <span style="color: #999;">11</span> Speculative &mdash;
+            <span style="color: #999;">12</span> Unknown
+        </div>
+    </div>
+</section>
+
+<!-- SHELF-KEYING -->
+
+<section id="shelf-keying">
+    <div class="container">
+        <h2>Shelf-Keying</h2>
+
+        <p>The most interesting discovery was that you don't need artificial intelligence to read a book. A good non-fiction book reads itself.</p>
+
+        <p>How? A book has an index &mdash; literally a list of all important persons, places, and concepts, with page numbers. The author already did the work. The bibliography is the citation network, ready-made. The table of contents tells you the structure. Footnotes mark the source references.</p>
+
+        <p>We called this <strong style="color: #fff;">Shelf-Keying</strong>: every book you add makes every other book smarter, because the keys from book A are also tried on book B.</p>
+
+        <p>The pun is free: <em>shelf</em> sounds almost like <em>self</em>. The shelf that reads itself.</p>
+
+        <div class="marker">The fingerprint</div>
+
+        <p>How do you know the "Shannon" in book A is the same as "C.E. Shannon" in book B? Not just by name, but by company. If Shannon appears next to "entropy", "Bell Labs" and "bit", it's the mathematician. If Shannon appears next to "river", "Ireland" and "fishing", it's the river.</p>
+
+        <p>Every entity builds a fingerprint: the words that appear in its vicinity. With every book, the fingerprint sharpens. After five books, a false match is nearly impossible.</p>
+    </div>
+</section>
+
+<!-- ALEXANDRIA -->
+
+<section id="alexandrie">
+    <div class="container">
+        <h2>Named After Alexandria</h2>
+
+        <p>The Mouseion (Greek: "seat of the Muses") was a royal research institution in Alexandria, founded around 280 BCE by <a href="https://en.wikipedia.org/wiki/Ptolemy_I_Soter">Ptolemy I Soter</a>. Not a museum in the modern sense &mdash; a living research community, comparable to the <a href="https://en.wikipedia.org/wiki/Institute_for_Advanced_Study">Institute for Advanced Study</a> in Princeton.</p>
+
+        <p>30 to 50 scholars resided there. Salary from the state, tax-exempt. No teaching obligation &mdash; free research. Common property, shared meals. Disciplines: mathematics (<a href="https://en.wikipedia.org/wiki/Euclid">Euclid</a>), astronomy, medicine (<a href="https://en.wikipedia.org/wiki/Herophilus">Herophilus</a> performed the first dissections), geography (<a href="https://en.wikipedia.org/wiki/Eratosthenes">Eratosthenes</a> calculated the circumference of the Earth), literary criticism, mechanics.</p>
+
+        <p><strong style="color: #fff;">Callimachus</strong> (ca. 310&ndash;240 BCE) created the Pinakes: 120 book rolls, the first library catalogue of the Western world. Classification: class, subgenre, alphabetical by author. Per entry: title, author, birthplace, father, education, number of lines, opening words. The model dominated for centuries.</p>
+
+        <blockquote>The Pinakes are not a fifth hall but the pneumatic post between the four halls. Not an address &mdash; the connection that runs through everything.</blockquote>
+
+        <p>Every concept in MOS maps to an Alexandrian tradition. The <a href="alexandrie/obelos.html">obelos</a> (the critical mark) became our certainty layers. The <a href="alexandrie/scholion.html">scholion</a> (margin note) became our turning point capture. <a href="alexandrie/ploi.html">Ploi</a> (the harbour practice of confiscating books from ships to copy them) became our acquisition layer.</p>
+
+        <div class="cluster">
+            <a href="alexandrie/mouseion.html">The Mouseion of Alexandria</a>
+            <a href="alexandrie/callimachus.html">Callimachus and the Pinakes</a>
+            <a href="alexandrie/obelos.html">The Obelos Tradition</a>
+            <a href="alexandrie/scholion.html">The Scholion</a>
+            <a href="alexandrie/ploi.html">Ploi &mdash; Knowledge Acquisition</a>
+            <a href="alexandrie/exedra.html">The Exedra</a>
+        </div>
+    </div>
+</section>
+
+<!-- RESULTS -->
+
+<section id="results">
+    <div class="container">
+        <h2>What It Found</h2>
+
+        <div class="marker">First test: Defence of the Realm</div>
+
+        <p><a href="https://en.wikipedia.org/wiki/The_Defence_of_the_Realm">Christopher Andrew's thousand-page MI5 history</a> was the first book through the pipeline. The system extracted thousands of entities, built a timeline spanning 1909 to 2009, and began crossing them with WO2 dossiers that were already in my database.</p>
+
+        <p>The crosses revealed things that neither source could show alone. Names that appeared in MI5 files but were absent from the Dutch standard work on World War II. Dates that contradicted across sources &mdash; not errors, but research questions. Patterns of omission that became visible only when you could search across everything at once.</p>
+
+        <div class="marker">WOZ: 1.8 million observations</div>
+
+        <p>The <a href="https://martijnaslander.github.io/Groninger-Oorlogspuzzels/index.html">WO-II-OS</a> project &mdash; applying the Life Lens System to World War II &mdash; now contains 1.8 million observations, 1 million unique persons, and 196,000 confirmed by two or more independent sources. MOS is the reading layer underneath: it ingests the archives, extracts the entities, and feeds them into the cross-referencing engine.</p>
+
+        <div class="marker">Seven scoops</div>
+
+        <p>Seven findings that don't appear in the secondary literature. Not because nobody looked, but because nobody could search across all sources simultaneously. The details are documented but not yet public.</p>
+    </div>
+</section>
+
+<!-- PART OF LLS -->
+
+<section id="lls">
+    <div class="container">
+        <h2>Part of the Life Lens System</h2>
+
+        <p>Mouseion OS is the library inside the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a>. Where ThetaOS stores the processed knowledge (knowledge cards, data cards, 560,000 records), MOS holds the raw source material and the extractions from it.</p>
+
+        <p>Tom looks inward &mdash; at Martijn's life. Cal looks outward &mdash; at knowledge about the world. Together they form a complete system: personal data crossed with source material, lived experience crossed with what others have written.</p>
+
+        <p>MOS is the layer before thinking. ThetaOS is the layer after.</p>
+    </div>
+</section>
+
+<!-- TIMELINE -->
+
+<section id="timeline">
+    <div class="container">
+        <h2>Timeline</h2>
+
+        <div class="timeline-entry"><span class="timeline-date">27 Apr 2026</span><span class="timeline-text">Mouseion OS site launched.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">25 Apr 2026</span><span class="timeline-text">Alexandrian naming: Mouseion, Callimachus, Pinakes, Obelos, Scholion, Ploi, Exedra.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">25 Apr 2026</span><span class="timeline-text">Cal Blauwdruk: MOS designed as research institution. Four halls, five roles, twelve certainty layers.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">21 Apr 2026</span><span class="timeline-text">Rich Book Extraction experiment: four missing layers identified and tested.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">17 Apr 2026</span><span class="timeline-text">Epistemological Extraction method card written.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">15 Apr 2026</span><span class="timeline-text">Shelf-Keying method documented. Ingest pipeline design finalised.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">14 Apr 2026</span><span class="timeline-text">WOZ first fill: BS-verslagen + OVCG + MI5 crossed. 8 dossiers, 390 pages, 753 claims.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">13 Apr 2026</span><span class="timeline-text">First test: Defence of the Realm (Christopher Andrew) through the pipeline.</span></div>
+        <div class="timeline-entry"><span class="timeline-date">13 Apr 2026</span><span class="timeline-text">Concept of "De Zelflezende Bibliotheek" crystallises. Name coined.</span></div>
+    </div>
+</section>
+
+<!-- CHANGELOG -->
+
+<section id="changelog">
+    <div class="container">
+        <h2>Changelog</h2>
+        <div class="changelog-entry"><span class="cl-date">2026-04-27</span> &mdash; Site launched. English version. Architecture, pipeline, Alexandria, timeline.</div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>Mouseion OS &mdash; Built by <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+        <p style="margin-top: 8px;">Part of the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a></p>
+    </div>
+</footer>
+
+<script>
+// Smooth scroll
+document.querySelectorAll('.sticky-nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+</script>
+<script data-goatcounter="https://mousion-os.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

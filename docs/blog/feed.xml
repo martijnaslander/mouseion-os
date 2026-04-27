@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mouseion OS Journal</title>
+    <link>https://martijnaslander.github.io/mouseion-os/</link>
+    <description>A self-reading library — discoveries, methods, and architecture.</description>
+    <language>en</language>
+    <atom:link href="https://martijnaslander.github.io/mouseion-os/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Sun, 27 Apr 2026 00:00:00 +0200</lastBuildDate>
+  </channel>
+</rss>
