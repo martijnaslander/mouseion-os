@@ -358,9 +358,9 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
 <nav class="sticky-nav" id="section-nav">
     <div class="sticky-nav-inner">
-        <a href="#story">Story</a>
+        <a href="#story">Origin</a>
         <a href="#architecture">Architecture</a>
-        <a href="#pipeline">Pipeline</a>
+        <a href="#pipeline">Book Processor</a>
         <div class="nav-divider"></div>
         <a href="#alexandrie">Alexandria</a>
         <a href="#shelf-keying">Shelf-Keying</a>
@@ -378,14 +378,15 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
 <header>
     <div class="container">
-        <h1>Mouseion OS</h1>
-        <p class="intro">Twenty-three centuries ago, fifty scholars in Alexandria did what no one had done before: they read everything, crossed everything, and built the first catalogue of human knowledge. Their institute was called the <a href="https://en.wikipedia.org/wiki/Musaeum">Mouseion</a> &mdash; Greek for "seat of the Muses". Mouseion OS does the same &mdash; but the scholars are software, and the library never burns.</p>
+        <h1>Mouseion OS (MOS)</h1>
+        <p class="intro">Twenty-three centuries ago, fifty scholars in Alexandria did what no one had done before: they read everything, crossed everything, and built the first catalogue of human knowledge. Their institute was called the <a href="https://en.wikipedia.org/wiki/Musaeum">Mouseion</a> &mdash; Greek for "seat of the Muses". Mouseion OS does the same &mdash; but the scholars are software, and the library never burns. The <a href="https://en.wikipedia.org/wiki/Destruction_of_the_Library_of_Alexandria">original did</a>, in 48 BCE.</p>
         <div class="stats-row">
-            <div class="stat"><div class="num">1,263</div><div class="label">Books</div></div>
-            <div class="stat"><div class="num">163</div><div class="label">Sources ingested</div></div>
-            <div class="stat"><div class="num">13,757</div><div class="label">Chunks indexed</div></div>
-            <div class="stat"><div class="num">13,124</div><div class="label">Entities extracted</div></div>
-            <div class="stat"><div class="num">2,575</div><div class="label">Claims mapped</div></div>
+            <div class="stat"><div class="num">52</div><div class="label">Books read by the system</div></div>
+            <div class="stat"><div class="num">13,124</div><div class="label">Persons, places &amp; concepts found</div></div>
+            <div class="stat"><div class="num">2,575</div><div class="label">Author claims mapped</div></div>
+            <div class="stat"><div class="num">76 MB</div><div class="label">Pure text, no markup</div></div>
+        </div>
+        <p class="author-line" style="margin-top: 12px; font-size: 13px; color: #888;">From a personal library of 1,263 books. About 1,500 more to process &mdash; under 1 GB of plain text. A thousand books fit in less space than a single video file.</p>
         </div>
         <p class="author-line">Built by Martijn Aslander. Part of the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a>.</p>
     </div>
@@ -411,7 +412,7 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
         <p>Three sources. Three completely different worlds. But in my head, they kept crossing.</p>
 
-        <p><a href="https://en.wikipedia.org/wiki/Claude_Shannon">Shannon</a>, the father of information theory, lived in the same era as the MI5 officers in Andrew's book. Wartime intelligence services used the same principles of coding and noise that Shannon would describe mathematically. And my research on the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a> was trying to understand how the same reality looks different depending on which lens you use.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> &mdash; the father of information theory, and the man <a href="https://en.wikipedia.org/wiki/Claude_(language_model)">Anthropic's Claude</a> is named after &mdash;, lived in the same era as the MI5 officers in Andrew's book. Wartime intelligence services used the same principles of coding and noise that Shannon would describe mathematically. And my research on the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a> was trying to understand how the same reality looks different depending on which lens you use.</p>
 
         <p>I thought: what if I don't just read all these sources, but let them read each other?</p>
 
@@ -479,7 +480,7 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
         </table>
 
         <p>The AI librarian of my Mouseion is called <strong style="color: #fff;">Cal</strong> &mdash; named after <a href="alexandrie/callimachus.html">Callimachus of Cyrene</a> (ca. 310&ndash;240 BCE), the scholar who built the Pinakes, the first library catalogue in the Western world. Callimachus wasn't the head librarian &mdash; that was <a href="https://en.wikipedia.org/wiki/Zenodotus">Zenodotus</a>. He was something more interesting: the man who decided how to organise everything. He invented classification by genre, alphabetical ordering by author, and the idea that every entry should carry metadata: title, birthplace, teacher, number of lines, opening words. Twenty-three centuries before <a href="https://en.wikipedia.org/wiki/Dublin_Core">Dublin Core</a>, Callimachus wrote the spec.</p>
-        <p>Cal does the same thing in MOS. When a new source enters the system, Cal decides where it goes, what gets extracted, how it connects to what's already there. Tom looks inward &mdash; at Martijn's life. Cal looks outward &mdash; at knowledge about the world. Together they are the two eyes of the system.</p>
+        <p>Cal does the same thing in MOS. When a new source enters the system, Cal decides where it goes, what gets extracted, how it connects to what's already there. <a href="https://martijnaslander.github.io/life-lens-system/">Tom</a> &mdash; my personal AI guide built on top of 560,000 records of my own life &mdash; looks inward. Cal looks outward, at knowledge about the world. Together they are the two eyes of the system.</p>
 
         <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Three Thinking Tools from Alexandria</h3>
 
@@ -492,7 +493,7 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
         Alexandrian scholars wrote comments in the margins, never in the text itself. The thinking about the source stayed separate from the source. The text is sacred; the margin is yours. In MOS, the scholion became the Exedra &mdash; the reasoning log where turning points, doubts, and connections are captured. The thought that crosses your mind while reading chapter seven may be more valuable than chapter seven itself.</p>
 
         <p><strong style="color: #fff;">Ploi</strong> &mdash; <em>"What exists out there that I don't have yet?"</em><br>
-        The <a href="https://en.wikipedia.org/wiki/Ptolemaic_dynasty">Ptolemies</a> had a harbour policy: every ship entering Alexandria had its books confiscated. The library copied them, then returned the originals &mdash; sometimes. In MOS, Ploi is the acquisition layer: actively looking outward, bringing knowledge in. I gave Cal two library cards &mdash; one for the public library, one for open archives. Cal borrows books, picks them up, reads them, and returns them. The harbour of Alexandria is now a municipal library in Haarlem and a digital archive portal.</p>
+        The <a href="https://en.wikipedia.org/wiki/Ptolemaic_dynasty">Ptolemies</a> had a harbour policy: every ship entering Alexandria had its books confiscated. The library copied them, then returned the originals &mdash; sometimes. In MOS, Ploi is the acquisition layer: actively looking outward, bringing knowledge in. I gave Cal two library cards &mdash; one for the <a href="https://www.onlinebibliotheek.nl/word-lid.html">Dutch public library</a>, one for the <a href="https://archive.org">Internet Archive</a>. Cal borrows books, picks them up, reads them, and returns them. The harbour of Alexandria is now a municipal library card and the largest digital archive in the world.</p>
     </div>
 </section>
 
@@ -500,25 +501,28 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
 <section id="pipeline">
     <div class="container">
-        <h2>The Pipeline</h2>
+        <h2>The Book Processor</h2>
 
-        <p>Every source &mdash; book, article, dossier &mdash; enters through the same nine-step pipeline. The system breaks it into chunks, indexes them for full-text search, and then extracts four layers:</p>
+        <p>Every source &mdash; books, articles, dossiers, reports, blogs, clippings, and even songs &mdash; enters through the same nine-step pipeline. The system cuts it into searchable passages, indexes them for full-text search, and then extracts four layers:</p>
 
         <div class="pipeline">
             <div class="pipeline-step"><div class="step-num">1</div><div class="step-name">Upload</div><div class="step-desc">epub, pdf, scan</div></div>
-            <div class="pipeline-step"><div class="step-num">2</div><div class="step-name">Ingest</div><div class="step-desc">plain text + chunks</div></div>
-            <div class="pipeline-step"><div class="step-num">3</div><div class="step-name">FTS Index</div><div class="step-desc">full-text search</div></div>
-            <div class="pipeline-step"><div class="step-num">4</div><div class="step-name">Extract</div><div class="step-desc">entities, concepts, claims, works</div></div>
-            <div class="pipeline-step"><div class="step-num">5</div><div class="step-name">Cross</div><div class="step-desc">match against all existing sources</div></div>
+            <div class="pipeline-step"><div class="step-num">2</div><div class="step-name">Ingest</div><div class="step-desc">convert to plain text</div></div>
+            <div class="pipeline-step"><div class="step-num">3</div><div class="step-name">Index</div><div class="step-desc">full-text searchable</div></div>
+            <div class="pipeline-step"><div class="step-num">4</div><div class="step-name">Extract</div><div class="step-desc">persons, concepts, claims, works</div></div>
+            <div class="pipeline-step"><div class="step-num">5</div><div class="step-name">Deduplicate</div><div class="step-desc">merge across chapters</div></div>
             <div class="pipeline-step"><div class="step-num">6</div><div class="step-name">Approve</div><div class="step-desc">human review</div></div>
+            <div class="pipeline-step"><div class="step-num">7</div><div class="step-name">Store</div><div class="step-desc">write to database</div></div>
+            <div class="pipeline-step"><div class="step-num">8</div><div class="step-name">Feedback</div><div class="step-desc">new entities back to lexicon</div></div>
+            <div class="pipeline-step"><div class="step-num">9</div><div class="step-name">Cross</div><div class="step-desc">match against all existing sources</div></div>
         </div>
 
-        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">What gets extracted</h3>
+        <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">What gets extracted, why, and how</h3>
 
-        <p><strong style="color: #fff;">Persons with role and context</strong> &mdash; not just "Shannon" but "Claude Shannon, mathematician, Bell Labs, information theory". Certainty layer 6: 95%.</p>
-        <p><strong style="color: #fff;">Concepts with meaning</strong> &mdash; what the author means by "entropy", "intelligence", "information". Traced across domains. Certainty layer 6: 90%.</p>
-        <p><strong style="color: #fff;">Claims by the author</strong> &mdash; assertions, not summaries. What the author states as true. Certainty layer 6: 90%.</p>
-        <p><strong style="color: #fff;">Cited works</strong> &mdash; title, author, year. The citation network, extracted from non-academic sources. Certainty layer 6: 99%.</p>
+        <p><strong style="color: #fff;">Persons with role and context</strong> &mdash; not just "Shannon" but "Claude Shannon, mathematician, Bell Labs, information theory". <em>Why:</em> a name without context is useless &mdash; knowing someone is a physicist changes how you read their claims. <em>How:</em> the system reads each passage and identifies who appears, in what role, at what organisation. Certainty: 95%.</p>
+        <p><strong style="color: #fff;">Concepts with meaning</strong> &mdash; what the author means by "entropy", "intelligence", "information". <em>Why:</em> the same word means different things in different fields &mdash; tracking that is how you find real connections and avoid false ones. <em>How:</em> extracted per chapter, then traced across domains. Certainty: 90%.</p>
+        <p><strong style="color: #fff;">Claims by the author</strong> &mdash; assertions, not summaries. What the author states as true. <em>Why:</em> a summary loses the author's voice. A claim preserves exactly what they committed to &mdash; and can be crossed with claims from other authors. <em>How:</em> each passage is scanned for declarative statements that the author presents as fact. Certainty: 90%.</p>
+        <p><strong style="color: #fff;">Cited works</strong> &mdash; title, author, year. The citation network, extracted from non-academic sources. <em>Why:</em> who cites whom reveals intellectual lineage &mdash; which ideas flow where, and which authors are bridges between fields. <em>How:</em> bibliographies, footnotes, and in-text references are parsed automatically. Certainty: 99%.</p>
 
         <h3 style="color: #fff; margin-top: 36px; margin-bottom: 16px;">Twelve certainty layers</h3>
 
@@ -604,7 +608,7 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
         <div class="marker">WOZ: 1.8 million observations</div>
 
-        <p>The <a href="https://martijnaslander.github.io/Groninger-Oorlogspuzzels/index.html">WO-II-OS</a> project &mdash; applying the Life Lens System to World War II &mdash; now contains 1.8 million observations, 1 million unique persons, and 196,000 confirmed by two or more independent sources. MOS is the reading layer underneath: it ingests the archives, extracts the entities, and feeds them into the cross-referencing engine.</p>
+        <p>My WO-II-OS archive &mdash; applying the Life Lens System to World War II &mdash; now contains 2 million records, 1 million unique persons, and 196,000 confirmed by two or more independent sources. The <a href="https://martijnaslander.github.io/Groninger-Oorlogspuzzels/index.html">Groninger Oorlogspuzzels</a> are a publicly visible part of it. MOS is the reading layer underneath: it ingests the archives, extracts the entities, and feeds them into the cross-referencing engine.</p>
 
         <div class="marker">Seven scoops</div>
 
@@ -618,9 +622,9 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
     <div class="container">
         <h2>Part of the Life Lens System</h2>
 
-        <p>Mouseion OS is the library inside the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a>. Where ThetaOS stores the processed knowledge (knowledge cards, data cards, 560,000 records), MOS holds the raw source material and the extractions from it.</p>
+        <p>Mouseion OS is the library inside my <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a> &mdash; the <a href="https://world.hey.com/martijnaslander/i-think-i-ve-built-a-mythical-machine-cac6597f">memex</a> I built. MOS is one of many tools that strengthen and extend my LLS, the way a library strengthens a university: not the building itself, but indispensable for everything that happens inside it.</p>
 
-        <p>Tom looks inward &mdash; at Martijn's life. Cal looks outward &mdash; at knowledge about the world. Together they form a complete system: personal data crossed with source material, lived experience crossed with what others have written.</p>
+        <p>Tom looks inward &mdash; at my life. Cal looks outward &mdash; at knowledge about the world. Together they form a complete system: personal data crossed with source material, lived experience crossed with what others have written.</p>
 
         <p>MOS is the layer before thinking. ThetaOS is the layer after.</p>
     </div>
@@ -630,7 +634,7 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
 <section id="timeline">
     <div class="container">
-        <h2>Timeline</h2>
+        <h2>Timeline <a href="blog/feed.xml" style="border-bottom: none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" style="vertical-align: -2px; margin-left: 6px;"><rect width="256" height="256" rx="55" ry="55" fill="#f26522"/><circle cx="68" cy="189" r="28" fill="#fff"/><path d="M160 213h-34a82 82 0 0 0-82-82V97a116 116 0 0 1 116 116z" fill="#fff"/><path d="M224 213h-34a150 150 0 0 0-150-150V29a184 184 0 0 1 184 184z" fill="#fff"/></svg></a></h2>
 
         <div class="timeline-entry"><span class="timeline-date">27 Apr 2026</span><span class="timeline-text">Mouseion OS site launched.</span></div>
         <div class="timeline-entry"><span class="timeline-date">25 Apr 2026</span><span class="timeline-text">Alexandrian naming: Mouseion, Callimachus, Pinakes, Obelos, Scholion, Ploi, Exedra.</span></div>
@@ -648,8 +652,16 @@ footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
 
 <section id="changelog">
     <div class="container">
-        <h2>Changelog</h2>
+        <h2>Changelog <a href="blog/feed.xml" style="border-bottom: none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" style="vertical-align: -2px; margin-left: 6px;"><rect width="256" height="256" rx="55" ry="55" fill="#f26522"/><circle cx="68" cy="189" r="28" fill="#fff"/><path d="M160 213h-34a82 82 0 0 0-82-82V97a116 116 0 0 1 116 116z" fill="#fff"/><path d="M224 213h-34a150 150 0 0 0-150-150V29a184 184 0 0 1 184 184z" fill="#fff"/></svg></a></h2>
         <div class="changelog-entry"><span class="cl-date">2026-04-27</span> &mdash; Site launched. English version. Architecture, pipeline, Alexandria, timeline.</div>
+    </div>
+</section>
+
+<section id="origin-pilot" style="border-bottom: none;">
+    <div class="container">
+        <h2>Born from the Pilot</h2>
+        <p>This project is a by-product of the <a href="https://digitalefitheid.nl/over/pilot-informatie-autonomie/">Pilot Informatie Autonomie</a>, where we discovered that to work with computers, information, and especially AI, file formats that require software to open them &mdash; DOCX, PDF, ODF &mdash; are a dead end.</p>
+        <p>Everything you see here works because we use a format that computers can read, search, and process natively: <strong style="color: #fff;">plain text</strong>.</p>
     </div>
 </section>
 
