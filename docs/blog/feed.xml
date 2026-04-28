@@ -6,6 +6,20 @@
     <description>A self-reading library — discoveries, methods, and architecture.</description>
     <language>en</language>
     <atom:link href="https://martijnaslander.github.io/mouseion-os/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sun, 27 Apr 2026 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 00:00:00 +0200</lastBuildDate>
+    <item>
+      <title>The Clippings Machine</title>
+      <link>https://martijnaslander.github.io/mouseion-os/blog/the-clippings-machine.html</link>
+      <guid>https://martijnaslander.github.io/mouseion-os/blog/the-clippings-machine.html</guid>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 +0200</pubDate>
+      <description>The human filters. The system crosses. Together they see more than either one alone. How a self-reading library makes the connections your mind can no longer track.</description>
+    </item>
+    <item>
+      <title>De scheursels-machine</title>
+      <link>https://martijnaslander.github.io/mouseion-os/blog/de-scheursels-machine.html</link>
+      <guid>https://martijnaslander.github.io/mouseion-os/blog/de-scheursels-machine.html</guid>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 +0200</pubDate>
+      <description>De mens filtert. Het systeem kruist. Samen zien ze meer dan elk apart. Hoe een zelflezende bibliotheek de kruisingen maakt die je hoofd niet meer bijhoudt.</description>
+    </item>
   </channel>
 </rss>
