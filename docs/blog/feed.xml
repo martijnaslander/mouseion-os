@@ -6,7 +6,21 @@
     <description>A self-reading library — discoveries, methods, and architecture.</description>
     <language>en</language>
     <atom:link href="https://martijnaslander.github.io/mouseion-os/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Tue, 28 Apr 2026 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 28 Apr 2026 12:00:00 +0200</lastBuildDate>
+    <item>
+      <title>How Cal Got a Library Card</title>
+      <link>https://martijnaslander.github.io/mouseion-os/blog/how-cal-got-a-library-card.html</link>
+      <guid>https://martijnaslander.github.io/mouseion-os/blog/how-cal-got-a-library-card.html</guid>
+      <pubDate>Mon, 28 Apr 2026 12:00:00 +0200</pubDate>
+      <description>Callimachus catalogued the Library of Alexandria by hand. Cal does it with a library card and a server. What 42 euros a year changes for an AI librarian.</description>
+    </item>
+    <item>
+      <title>Hoe Cal een bibliotheekpas kreeg</title>
+      <link>https://martijnaslander.github.io/mouseion-os/blog/hoe-cal-een-bibliotheekpas-kreeg.html</link>
+      <guid>https://martijnaslander.github.io/mouseion-os/blog/hoe-cal-een-bibliotheekpas-kreeg.html</guid>
+      <pubDate>Mon, 28 Apr 2026 12:00:00 +0200</pubDate>
+      <description>Callimachus catalogiseerde de Bibliotheek van Alexandri&#xEB; met de hand. Cal doet het met een bibliotheekpas en een server. Wat 42 euro per jaar verandert voor een AI-bibliothecaris.</description>
+    </item>
     <item>
       <title>The Clippings Machine</title>
       <link>https://martijnaslander.github.io/mouseion-os/blog/the-clippings-machine.html</link>

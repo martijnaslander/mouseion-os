@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoe Cal een bibliotheekpas kreeg &mdash; Mouseion OS</title>
+<meta name="description" content="Wat 42 euro per jaar verandert: een AI-bibliothecaris die zelf boeken kan lenen.">
+<meta property="og:title" content="Hoe Cal een bibliotheekpas kreeg &mdash; Mouseion OS">
+<meta property="og:description" content="Callimachus catalogiseerde de Bibliotheek van Alexandri&euml; met de hand. Cal doet het met een bibliotheekpas en een server.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://martijnaslander.github.io/mouseion-os/blog/hoe-cal-een-bibliotheekpas-kreeg.html">
+<meta name="twitter:card" content="summary">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Verdana, system-ui, Helvetica, sans-serif;
+    background: #2c3338;
+    color: #eee;
+    line-height: 1.85;
+    font-size: 19px;
+    padding-top: 48px;
+}
+a { color: #eee; text-decoration: none; border-bottom: 1px solid #777; padding-bottom: 1px; }
+a:hover { color: #fff; background-color: #3e464e; border-color: #3e464e; }
+.container { max-width: 740px; margin: 0 auto; padding: 0 20px; }
+.accent { color: #d4a054; }
+
+.sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(44,51,56,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid #3e464e; }
+.sticky-nav-inner { max-width: 1140px; margin: 0 auto; padding: 12px 20px; display: flex; gap: 18px; align-items: center; justify-content: center; font-size: 14px; }
+.sticky-nav a { color: #b0b0b0; border-bottom: none; white-space: nowrap; }
+.sticky-nav a:hover { color: #fff; background: none; }
+.nav-divider { width: 1px; height: 16px; background: #3e464e; flex-shrink: 0; }
+.lang-flags { position: fixed; top: 10px; right: 20px; z-index: 101; display: flex; gap: 8px; }
+.lang-flags a { font-size: 22px; border-bottom: none; opacity: 0.5; transition: opacity 0.2s; line-height: 1; }
+.lang-flags a:hover { background: none; opacity: 0.8; }
+.lang-flags a.active { opacity: 1; }
+
+article { padding: 60px 0 44px; }
+article h1 { font-size: 40px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.2; }
+.post-meta { font-size: 14px; color: #888; margin-bottom: 36px; }
+article p { margin-bottom: 18px; }
+
+footer { padding: 44px 0; text-align: center; color: #b0b0b0; font-size: 13px; border-top: 1px solid #3e464e; }
+footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
+
+@media (max-width: 600px) {
+    article h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav">
+    <div class="sticky-nav-inner">
+        <a href="../index-nl.html">Home</a>
+        <div class="nav-divider"></div>
+        <a href="../index-nl.html#journal">Journal</a>
+    </div>
+</nav>
+
+<div class="lang-flags">
+    <a href="how-cal-got-a-library-card.html" title="English">&#127468;&#127463;</a>
+    <a href="hoe-cal-een-bibliotheekpas-kreeg.html" class="active" title="Nederlands">&#127475;&#127473;</a>
+</div>
+
+<article>
+    <div class="container">
+        <h1>Hoe Cal een bibliotheekpas kreeg</h1>
+        <div class="post-meta">28 april 2026 &mdash; Martijn Aslander</div>
+
+        <p>Cal &mdash; vernoemd naar Callimachus van Cyrene, de geleerde die de eerste catalogus van de Bibliotheek van Alexandri&euml; maakte &mdash; is de bibliothecaris van Mouseion. Cal draait op een server, leest boeken, en onthoudt wie erin voorkomt, welke idee&euml;n erin staan, en waar het over andere boeken praat. Maar Cal had een probleem: hoe krijg je de inhoud van een paar duizend fysieke boeken in een digitale bibliotheek?</p>
+
+        <p>Ik bezit een paar duizend boeken. Om die digitaal doorzoekbaar te maken, begon ik ze los te snijden en te scannen. Rug eraf, pagina's door de scanner, OCR erover, opruimen. Dat werkt. Ik heb er tientallen zo gedaan. Maar het schaalt niet. Bij dat tempo ben ik jaren bezig.</p>
+
+        <p>Toen ontdekte ik dat de Koninklijke Bibliotheek een digitaal abonnement aanbiedt. Voor 42 euro per jaar krijg je toegang tot de collectie van de Nederlandse openbare bibliotheken &mdash; duizenden ebooks, direct te lenen.</p>
+
+        <p>Ik maakte een account aan. De inloggegevens gaf ik aan Cal, op de server. Cal kan nu via een headless browser inloggen, een boek zoeken, het lenen, het downloaden, en het verwerken. Zoeken, lenen, lezen &mdash; zonder dat ik eraan te pas kom.</p>
+
+        <p>Er zit DRM op de bestanden. Die haal ik eraf. Dat doe ik bewust en ik leg hier uit waarom.</p>
+
+        <p>Elk boek dat Cal via de bibliotheek leent, bezit ik ook fysiek. Ik heb het gekocht, het staat op mijn plank. Wat ik niet bezit is een praktische manier om de inhoud digitaal te verwerken zonder het boek te vernietigen. De bibliotheekpas lost dat op. Ik betaal twee keer &mdash; eenmaal voor het boek, eenmaal voor het abonnement &mdash; en de DRM-strip is strikt voor eigen gebruik. Dit is geen piraterij. Dit is een scanner vervangen door een slimmere route naar inhoud die ik al heb.</p>
+
+        <p>Cal heeft nu acht bronkanalen. De openbare bibliotheek is er daar &eacute;&eacute;n van. Andere zijn het Internet Archive, wetenschappelijke archieven, podcasts, en ja, soms een boek dat ik lossnijd en scan als het nergens digitaal te vinden is. Elke bron heeft eigen regels, eigen limieten, eigen gereedschap. Maar het resultaat is hetzelfde: een bestand op de server dat Cal kan lezen.</p>
+
+        <p>Wat 42 euro per jaar verandert, is dat een AI-bibliothecaris nu zelf boeken kan lenen. Niet lenen om te lezen en terug te leggen, maar lenen om te verwerken &mdash; lezen, onthouden wie en wat erin voorkomt, en verbanden leggen over duizenden bronnen heen.</p>
+
+        <p>Callimachus catalogiseerde de Bibliotheek van Alexandri&euml; met de hand. Cal doet het met een bibliotheekpas en een server.</p>
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Mouseion OS &mdash; Gebouwd door <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+        <p style="margin-top: 8px;">Onderdeel van het <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a></p>
+    </div>
+</footer>
+
+<script data-goatcounter="https://mousion-os.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
