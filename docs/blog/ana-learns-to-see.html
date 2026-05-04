@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Learns to See &mdash; Mouseion OS</title>
+<meta name="description" content="How Ana's perceptual ability grew: from unreadable carbon copies to ten lenses that together see what no single lens shows.">
+<meta property="og:title" content="Ana Learns to See &mdash; Mouseion OS">
+<meta property="og:description" content="There are no unreadable documents. There are documents that haven't been looked at in enough ways yet.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://martijnaslander.github.io/mouseion-os/blog/ana-learns-to-see.html">
+<meta name="twitter:card" content="summary">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Verdana, system-ui, Helvetica, sans-serif;
+    background: #2c3338;
+    color: #eee;
+    line-height: 1.85;
+    font-size: 19px;
+    padding-top: 48px;
+}
+a { color: #eee; text-decoration: none; border-bottom: 1px solid #777; padding-bottom: 1px; }
+a:hover { color: #fff; background-color: #3e464e; border-color: #3e464e; }
+.container { max-width: 740px; margin: 0 auto; padding: 0 20px; }
+.accent { color: #d4a054; }
+
+.sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(44,51,56,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid #3e464e; }
+.sticky-nav-inner { max-width: 1140px; margin: 0 auto; padding: 12px 20px; display: flex; gap: 18px; align-items: center; justify-content: center; font-size: 14px; }
+.sticky-nav a { color: #b0b0b0; border-bottom: none; white-space: nowrap; }
+.sticky-nav a:hover { color: #fff; background: none; }
+.nav-divider { width: 1px; height: 16px; background: #3e464e; flex-shrink: 0; }
+.lang-flags { position: fixed; top: 10px; right: 20px; z-index: 101; display: flex; gap: 8px; }
+.lang-flags a { font-size: 22px; border-bottom: none; opacity: 0.5; transition: opacity 0.2s; line-height: 1; }
+.lang-flags a:hover { background: none; opacity: 0.8; }
+.lang-flags a.active { opacity: 1; }
+
+article { padding: 60px 0 44px; }
+article h1 { font-size: 40px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.2; }
+.post-meta { font-size: 14px; color: #888; margin-bottom: 36px; }
+article p { margin-bottom: 18px; }
+
+footer { padding: 44px 0; text-align: center; color: #b0b0b0; font-size: 13px; border-top: 1px solid #3e464e; }
+footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
+
+@media (max-width: 600px) {
+    article h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav">
+    <div class="sticky-nav-inner">
+        <a href="../index.html">Home</a>
+        <div class="nav-divider"></div>
+        <a href="../index.html#journal">Journal</a>
+    </div>
+</nav>
+
+<div class="lang-flags">
+    <a href="ana-learns-to-see.html" class="active" title="English">&#127468;&#127463;</a>
+    <a href="ana-leert-kijken.html" title="Nederlands">&#127475;&#127473;</a>
+</div>
+
+<article>
+    <div class="container">
+        <h1>Ana Learns to See</h1>
+        <div class="post-meta">4 May 2026 &mdash; Martijn Aslander</div>
+
+        <p>In the <a href="ana-the-reader.html">previous piece</a> I described how Ana, Mouseion&rsquo;s processing layer, reads source material with comprehension &mdash; not just the text but also who appears in it, what connections exist, and at what certainty level. What I didn&rsquo;t tell you is that Ana wasn&rsquo;t always good at this, and that last week we made discoveries that fundamentally expanded her perceptual ability.</p>
+
+        <p>It started with a practical problem. Monique Brinks photographed over 746 scans at the Dutch National Archives from dossiers of Bureau Inlichtingen &mdash; the Dutch intelligence service that operated from London and later Eindhoven during and after the war. Those scans contain correspondence ledgers with tens of thousands of entries, agent registers, forced labour lists, and carbon copies of internal reports. An enormously rich collection, but recorded on paper in the 1940s, photographed with an iPhone in an archive reading room, and therefore exactly the kind of material where conventional text recognition struggles.</p>
+
+        <p>The first reading produced results that looked usable at first glance but turned out to contain structural errors on closer inspection. In the correspondence ledgers &mdash; pre-printed cashbook forms with red column lines &mdash; Ana confused columns: sequence numbers ended up in the sender field, dates appeared where names should be, and reference codes were read as subjects. Not because the text was illegible, but because Ana didn&rsquo;t understand how the form was structured. She read the words correctly but placed them in the wrong box.</p>
+
+        <p>With the carbon copies &mdash; thin sheets with blue or purple ink that was already faint in 1944 and is now barely visible &mdash; the problem was more fundamental. Ana reported the document as unreadable and delivered empty or largely guessed transcriptions. The archival world would say at that point: find a better copy, or accept that this information is lost. But I didn&rsquo;t have a better copy, and the information in those carbons is precisely what makes the difference for Monique&rsquo;s research.</p>
+
+        <p>The first breakthrough came from an unexpected direction. We tested five different text recognition engines on the same scan and discovered that the choice of engine mattered far less than the quality of what we fed the engine. A good crop with the simplest engine beats a bad crop with the best engine. The reader wasn&rsquo;t the problem &mdash; the specimen was.</p>
+
+        <p>That insight led to what I call smart crop: a script that analyses the scan before Ana starts reading. The first step is finding the book spine &mdash; every scan is a photograph of two open pages, and the spine is the darkest vertical strip somewhere around the middle. Once you detect it automatically via a brightness profile across all columns, you can separate the two pages and present each one individually, without the dark shadow of the spine distorting the text.</p>
+
+        <p>But the real surprise was in the red lines. The correspondence ledgers are pre-printed forms with vertical red lines separating the columns: sequence number, date, sender, addressed to, subject, dossier number. Those lines exist for the human eye and get ignored by conventional text recognition &mdash; they&rsquo;re not text, after all. But if you detect them through colour filtering &mdash; looking for pixels where the red channel dominates over green and blue &mdash; you can determine precisely where each column begins and ends. The script counts how many red pixels stack vertically per column, and where those stacks form peaks, that&rsquo;s where a line runs.</p>
+
+        <p>The effect was immediate and dramatic. Where Ana previously confused columns and read sequence numbers as names, she now knew exactly which strip of the form she was looking at. Column assignment went from 67 percent to one hundred percent correct &mdash; not by reading better but by looking better before reading.</p>
+
+        <p>For the carbon copies we had to think differently. A carbon copy is a sheet of paper that lay beneath the original while it was being typed, so the keystroke of the typewriter produced a second impression through carbon paper. That impression is blue to purple, weak, and fades over the decades. If you view such a sheet in greyscale, the text almost completely disappears into the background. But the ink isn&rsquo;t gone &mdash; it lives in a specific colour channel.</p>
+
+        <p>That was the second breakthrough. If you extract the blue channel of the scan separately and subtract the red channel from it, you isolate precisely the carbon ink and suppress the background colour of the yellowed paper. The difference is sometimes spectacular: what looks like a uniform beige surface in the normal scan becomes readable text with recognisable letters and words in the blue-minus-red channel.</p>
+
+        <p>But one image transformation isn&rsquo;t enough, because every transformation reveals something and hides something else. Channel separation makes the ink visible but loses fine detail. A gamma correction that brightens dark areas reveals text in the shadows but blows out the light regions. A CLAHE operation &mdash; a technique that adjusts contrast locally per block of the image rather than across the whole frame &mdash; brings structure back to flat areas but introduces raster artefacts. An inversion of the image, simply the negative, sometimes makes letterforms visible that are unrecognisable in the positive.</p>
+
+        <p>So we built an engine that doesn&rsquo;t produce one version but ten. Flat-field correction to compensate for the light falloff of the photograph, channel separation in five variants, CLAHE, adaptive thresholding that converts the image to black-and-white based on local brightness, inversion with contrast enhancement, gamma correction at multiple levels, sharpening, and combinations of these techniques &mdash; for instance flat-field followed by blue channel followed by CLAHE, what we call the triple stack.</p>
+
+        <p>The question then became: what do you do with ten versions of the same document?</p>
+
+        <p>The answer turned out to be the most important insight of the entire week. We put four readers to work simultaneously, each with a different version of the same carbon copy. The document was a personnel overview of Bureau Inlichtingen from March 1945 &mdash; exactly the kind of scan Ana had previously labelled unreadable.</p>
+
+        <p>The first reader, working from the blue-minus-red version, read almost nothing. The transformation that works well on other carbons made this particular document too dark. The second reader, on the triple stack, recognised the table structure and guessed it was a bulletin, but filled the lines mostly with question marks. The third reader, on the gamma version, read the title correctly: &ldquo;Opgave van het Militair Personeel bij het Bureau Inlichtingen,&rdquo; the date &ldquo;per 9 maart 1945,&rdquo; seven place names &mdash; London, Eindhoven, Arnhem, &rsquo;s-Hertogenbosch, Helmond, The Hague, Brussels &mdash; personnel counts per location, and four military abbreviations: O.I.D., G.I.D., I.S., A.B.S. The fourth reader, on the CLAHE version, read words the third had missed: &ldquo;bijzondere rechtspleging,&rdquo; &ldquo;verordeningen,&rdquo; &ldquo;bezettingsautoriteiten&rdquo; &mdash; likely text bleeding through from the reverse side of the sheet.</p>
+
+        <p>No single reader individually got more than thirty percent of the document right, and the first two didn&rsquo;t get past the title. But together they delivered the complete document: title, date, structure, locations, counts, abbreviations, and even bleed-through text from the back. The merge of four partial readings was richer than the best individual reading could ever have been.</p>
+
+        <p>The principle behind this is what I call transform, diverge, merge. Transform the source through multiple visual lenses. Let each lens read divergently &mdash; independently, without knowledge of what the others see. And merge the results not by averaging but by taking the union: everything at least one reader reads with sufficient certainty counts. Three readers each reading thirty percent don&rsquo;t deliver thirty percent together but eighty, because they read different thirty percents. And the last twenty percent doesn&rsquo;t come from yet another image transformation but from context: the lexicon of known names we send along, the expected field structure from the source profile, and the chronological logic of the register.</p>
+
+        <p>What we also discovered &mdash; and what sounds obvious in hindsight but wasn&rsquo;t &mdash; is that standard image metrics don&rsquo;t measure what you think they measure. We tried to determine automatically which scans were hardest by looking at contrast and brightness. The scan that scored lowest turned out to be a request slip from the National Archives &mdash; a white piece of paper on a light table, trivially readable but with little pixel variation. The genuinely difficult scans, the carbons with their faint ink and yellowed paper, scored higher on contrast because they had more colour variation. The metric that matters isn&rsquo;t raw pixel statistics but ink presence per document type, and that&rsquo;s context-dependent.</p>
+
+        <p>The final link in the chain is the correction step. After reading, Ana compares every name and place name against a lexicon of known terms from the domain &mdash; names of persons, organisations, places, and abbreviations that appear in the Brinks research. When Ana reads &ldquo;Maastrichr&rdquo; and the lexicon knows &ldquo;Maastricht,&rdquo; it gets corrected. When Ana expects the same sender in consecutive lines and reads &ldquo;idem,&rdquo; she fills in the name from the previous line. When Ana places a date in a name field, the correction step recognises the pattern and flags it as an error. These corrections aren&rsquo;t large &mdash; the difference between 90 and 95 percent &mdash; but across tens of thousands of entries in hundreds of scans they add up to thousands of recovered errors that would otherwise propagate as noise through the system.</p>
+
+        <p>What all of this changes together is not the speed at which Ana reads, but the kinds of sources she can handle. Last week carbon copies were unreadable. Now they&rsquo;re the best-documented source type in the pipeline, with ten image transformations, four parallel readers, and a merge that yields more than any reader alone. Last week Ana confused columns in registers. Now she detects the column lines herself and knows exactly which field she&rsquo;s looking at before she starts reading.</p>
+
+        <p>There are no unreadable documents. There are documents that haven&rsquo;t been looked at in enough ways yet. That goes for carbon copies from 1945, for faded deeds from the seventeenth century, for damaged manuscripts, and for every other piece of source material that seems too degraded to process. The archival world looks with two eyes and puts it down when it&rsquo;s too faint. Ana looks with ten lenses at once, compares what each lens sees, and learns a new way of seeing with every source that comes next.</p>
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Mouseion OS &mdash; Built by <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+        <p style="margin-top: 8px;">Part of the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a></p>
+    </div>
+</footer>
+
+<script data-goatcounter="https://mousion-os.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
