@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana, de lezer &mdash; Mouseion OS</title>
+<meta name="description" content="De verwerkingslaag van Mouseion heeft een naam. Ana leest bronnen met begrip, extraheert entiteiten, en kruist wat los van elkaar in archiefkelders ligt.">
+<meta property="og:title" content="Ana, de lezer &mdash; Mouseion OS">
+<meta property="og:description" content="In het Mouseion van Alexandri&euml; was de Anagnostes de voorlezer. Ana doet hetzelfde, maar op een ongekende schaal en snelheid.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://martijnaslander.github.io/mouseion-os/blog/ana-de-lezer.html">
+<meta name="twitter:card" content="summary">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Verdana, system-ui, Helvetica, sans-serif;
+    background: #2c3338;
+    color: #eee;
+    line-height: 1.85;
+    font-size: 19px;
+    padding-top: 48px;
+}
+a { color: #eee; text-decoration: none; border-bottom: 1px solid #777; padding-bottom: 1px; }
+a:hover { color: #fff; background-color: #3e464e; border-color: #3e464e; }
+.container { max-width: 740px; margin: 0 auto; padding: 0 20px; }
+.accent { color: #d4a054; }
+
+.sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(44,51,56,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid #3e464e; }
+.sticky-nav-inner { max-width: 1140px; margin: 0 auto; padding: 12px 20px; display: flex; gap: 18px; align-items: center; justify-content: center; font-size: 14px; }
+.sticky-nav a { color: #b0b0b0; border-bottom: none; white-space: nowrap; }
+.sticky-nav a:hover { color: #fff; background: none; }
+.nav-divider { width: 1px; height: 16px; background: #3e464e; flex-shrink: 0; }
+.lang-flags { position: fixed; top: 10px; right: 20px; z-index: 101; display: flex; gap: 8px; }
+.lang-flags a { font-size: 22px; border-bottom: none; opacity: 0.5; transition: opacity 0.2s; line-height: 1; }
+.lang-flags a:hover { background: none; opacity: 0.8; }
+.lang-flags a.active { opacity: 1; }
+
+article { padding: 60px 0 44px; }
+article h1 { font-size: 40px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.2; }
+.post-meta { font-size: 14px; color: #888; margin-bottom: 36px; }
+article p { margin-bottom: 18px; }
+article .footnote { font-size: 15px; color: #b0b0b0; border-top: 1px solid #3e464e; margin-top: 36px; padding-top: 24px; }
+
+footer { padding: 44px 0; text-align: center; color: #b0b0b0; font-size: 13px; border-top: 1px solid #3e464e; }
+footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
+
+@media (max-width: 600px) {
+    article h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav">
+    <div class="sticky-nav-inner">
+        <a href="../index-nl.html">Home</a>
+        <div class="nav-divider"></div>
+        <a href="../index-nl.html#journal">Journal</a>
+    </div>
+</nav>
+
+<div class="lang-flags">
+    <a href="ana-the-reader.html" title="English">&#127468;&#127463;</a>
+    <a href="ana-de-lezer.html" class="active" title="Nederlands">&#127475;&#127473;</a>
+</div>
+
+<article>
+    <div class="container">
+        <h1>Ana, de lezer</h1>
+        <div class="post-meta">4 mei 2026 &mdash; Martijn Aslander</div>
+
+        <p>Ik werk aan Mouseion, een bibliotheek die ik zo noem naar het onderzoeksinstituut in Alexandri&euml;. Op de speciale website erover, waarin ik de opzet en werkwijze beschrijf, staat hij als zelflezende bibliotheek. Praktisch gezien werkt het als volgt: je stopt er bronnen in en je krijgt kennis terug over wie erin staat, wat er wordt beweerd, en waar bronnen elkaar kruisen, m&eacute;t de epistemologische bewijslaag erbij. Die verwerkingslaag had tot deze week geen naam.</p>
+
+        <p>Door mijn experiment met de Groninger Oorlogspuzzels, waarin ik 3.150 handgeschreven verzetskaarten in &eacute;&eacute;n nacht machineleesbaar maakte, kreeg ik mooie vragen van Monique Brinks, historica die tien jaar onderzoek deed naar Het Scholtenhuis in Groningen. Om die vragen serieus te beantwoorden had ik ineens veel meer bronnen nodig dan alleen die kaarten. Daar besloot ik het meteen goed aan te pakken: een bibliotheek waarin alle relevante boeken, dossiers en archiefstukken niet alleen staan, maar ook leesbaar en kruisbaar zijn met de databaseinformatie die ik al had. Samen ongekend krachtig.</p>
+
+        <p>Voor het soort bibliotheek dat ik nodig had, ontbraken een paar elementen. In academische context zijn er groepen die soortgelijke aanpakken onderzoeken &mdash; het DANIEL-project van LITIS aan de Universit&eacute; de Rouen Normandie bijvoorbeeld, dat layout-analyse, handschriftherkenning en entity-extractie in &eacute;&eacute;n model integreert. Maar als werkend systeem voor &eacute;&eacute;n onderzoeker, dat meerdere bron-typen kan kruisen en bewijslagen geeft, vond ik niets dat doet wat ik nodig had. Dus bouwde ik het zelf, en daarvoor begon ik met onderzoek naar het landschap van tekstherkenning: OCR voor gedrukte tekst, en HTR voor handschriften.</p>
+
+        <p>De grootste, dominante speler in het archiefveld is Transkribus. Ik wilde weten hoe hun businessmodel werkte. Niet omdat ik klant wilde worden, maar omdat iedereen in de archiefwereld het erover heeft en ik wilde begrijpen waar het verdienmodel zit. Dus ik ging graven naar hun prijzen, de eigendomsstructuur, hun jaarverslagen, de ontvangen EU-subsidies, en naar Nederlandse projecten en organisaties die het gebruiken &mdash; en projecten die het bewust niet gebruiken, en waarom.</p>
+
+        <p>Een Oostenrijkse co&ouml;peratie, READ-COOP, ontwikkelt het. Het businessmodel draait op credits: &eacute;&eacute;n credit per handgeschreven pagina, en op de publieke prijslijst kost dat ongeveer 24 cent. Voor instituten zijn er kortingen via de Metagrapho API en maatwerkcontracten, maar zelfs bij 50% korting loopt het bij grote archieven snel op. Vijf miljoen pagina&rsquo;s met institutionele korting komt nog steeds uit op honderdduizenden euro&rsquo;s. Dat is serieus veel overheidsgeld.</p>
+
+        <p>Het Huygens Instituut en het Nationaal Archief deden die rekensom ook voor hun GLOBALISE-project. Ze wilden vijf miljoen pagina&rsquo;s VOC-archief uit de zeventiende en achttiende eeuw doorzoekbaar maken met automatische handschriftherkenning. Met Transkribus zou dat veel te duur worden. In plaats daarvan bouwden ze Loghi, een open-source alternatief.</p>
+
+        <p>Daarna dook ik in het hoe en wat van Loghi. De GitHub-issues vertelden meer dan de marketingteksten. Het generieke model voor handschriftherkenning scoort tot 96% op standaardmateriaal, maar voor specifieke historische datasets is finetuning essentieel, en zelfs ervaren IT&rsquo;ers hebben uren nodig om het draaiend te krijgen. Ik checkte de code op GitHub en ontdekte dat de hele pipeline vastzit aan &eacute;&eacute;n chipfabrikant: NVIDIA. Zonder hun videokaarten draait er niks versneld. Op Apple Silicon (de chip in elke moderne Mac) werkt het alleen via emulatie, en dat is te traag voor serieus archiefwerk. Ana is daarin anders: Apple Vision draait native op de Neural Engine, Tesseract op de CPU, Claude Vision in de cloud. Geen van de drie heeft NVIDIA nodig. De hoofdontwikkelaar van Loghi hintte op een overstap naar transformers, weg van hun huidige architectuur. Ze weten dat hun motor veroudert.</p>
+
+        <p>Maar mijn echte inzichten zaten ergens anders.</p>
+
+        <p>Zowel Transkribus als Loghi stoppen namelijk bij hetzelfde punt. Ze lezen een scan en leveren tekst. Dat is het. Ze hebben geen begrip van wat er staat, ze isoleren geen entiteiten*, en ook geen verbanden tussen de gescande bronnen. Een doopakte uit 1696 en een scheepvaartlogboek uit 1742 krijgen dezelfde behandeling: van pixels naar letters en daar houdt het op.</p>
+
+        <p>Mijn pipeline gaat juist verder waar Transkribus en Loghi stoppen. Apple Vision leest de scan met 6% WER (Word Error Rate), een batch-pipeline verwerkt honderden scans tegelijk, en op mijn server draait het extractie-script dat er entiteiten en verbanden uit haalt. Dat draait robuust en ongekend snel. De orkestratie tussen die onderdelen is geen AI maar gewoon een script. Het verschil met Transkribus en Loghi zit niet in of het werkt, maar in waar het stopt: bij tekst, of juist een laag dieper, waardoor je er veel meer mee kunt.</p>
+
+        <p>In maart las ik via mijn eigen pipeline een handgeschreven doopakte uit 1696, uit de kerk van Gits in Vlaanderen. Niet alleen de tekst. Ik herkende namen, plaatste Hubertus Carolus Vanelslander als zoon van Hubertus senior en Joanna de Kemele, kruiste de vermelding met andere aktes en traceerde een familielijn die terugging tot het einde van de zeventiende eeuw. De scan werd geen tekst. De scan werd een persoon in een netwerk, verbonden met de Groninger Oorlogspuzzels die ik elders aan het leggen was.</p>
+
+        <p>Dat was dus geen OCR maar lezen met begrip. Ik deed het met een combinatie van Apple Vision, Claude en mijn eigen scripts, zonder er een naam voor te hebben. Datzelfde patroon herhaalde zich op een andere plek in mijn systeem: er gingen inmiddels 52 boeken door de pipeline, ik extraheerde ruim 13.000 entiteiten, en mijn WO2-archief is uitgegroeid tot 2 miljoen records, waarvan 196.000 zijn bevestigd door twee of meer onafhankelijke bronnen. Uiterst krachtig gereedschap dus.</p>
+
+        <p>Nu heeft het hele lees- en extractieproces een naam: <strong>Ana</strong>.</p>
+
+        <p>In het Mouseion van Alexandri&euml; was de Anagnostes (&alpha;&nu;&alpha;&gamma;&nu;&omega;&sigma;&tau;&eta;&sigmaf;) de voorlezer, degene die teksten toegankelijk maakte voor geleerden. De taak bestond niet alleen uit voorlezen, maar ook uit interpreteren, verbinden, en zichtbaar maken wat verborgen lag in de geschriften.</p>
+
+        <p>Ana doet hetzelfde, maar op een ongekende schaal en snelheid. Nogmaals, in zijn kern is dit software, geen AI in de gangbare zin. Eerder AI op een andere manier: Archivistische Intelligence.</p>
+
+        <p>Ana 2.0 draait inmiddels. Het werkt met vier lagen: herken de bron, lees hem met de juiste engine, begrijp de inhoud, en bewaar alles inclusief de herkomst. Het werk wordt verdeeld over de machines die ik toch al heb staan: de MacBook overdag, de Mac Mini &rsquo;s nachts, en een server op het web voor wat continu moet draaien (en moeiteloos dag en nacht doorwerkt).</p>
+
+        <p>Het idee waar ik het meest enthousiast over ben is het bronprofiel-lexicon.</p>
+
+        <p>Archivarissen werken al decennia met beschrijvingsstandaarden &mdash; EAD en Records in Context bijvoorbeeld &mdash; maar die beschrijven een bron pas nadat hij is gelezen. Een archivaris leest een doos met dossiers, plaatst ze in context, en vult dan een formulier in dat achter de schermen EAD-XML wordt. Het lezen zelf gebeurt nog steeds met de hand en het hoofd. Mijn profielen sturen het lezen zelf: welke engine kunnen we het beste gebruiken bij welk type register of logboek, welke velden zijn er bij dat type te verwachten, welk vocabulaire wordt erin gebruikt, en welke valkuilen kennen we waarvan we eerder leerden.</p>
+
+        <p>Een doopakte zit namelijk altijd op dezelfde manier in elkaar: een datum, welke kerk, naam van het kind, vader, moeder, de getuigen, en soms ook nog een predikant. Als Ana dat weet voordat het gaat lezen, verandert alles. Het verwacht een moedernaam na de vadernaam. Het herkent dat &ldquo;Hvbertvs&rdquo; waarschijnlijk Hubertus is. Het signaleert als er een veld ontbreekt dat er normaal wel is. Die voorkennis maakt het lezen veel beter, en ook nog eens sneller.</p>
+
+        <p>Bij een nieuw type bron zoals militaire stamboeken, of notari&euml;le vastleggingen, bouw ik het profiel eerst samen met Ana op. We doorlopen eerst vijfentwintig scans, ontdekken het patroon, en leggen vast welke velden erin zitten en welke valkuilen we kunnen verwachten. Het lexicon groeit zo bij elke nieuwe bron, en wordt zelfversterkend: hoe meer profielen we hebben, hoe sneller we kunnen herkennen wat erop lijkt.</p>
+
+        <p>Bij gedrukte boeken hoef je dat profiel niet te bouwen. De auteur heeft het al gedaan. Een goed non-fictieboek leest zichzelf namelijk. Het heeft een index met alle belangrijke personen en begrippen, een bibliografie die het citatienetwerk al heeft uitgeschreven, voetnoten die markeren waar de bronnen liggen, en een inhoudsopgave die de structuur prijsgeeft. Shelf-Keying noem ik dat: elk boek dat je toevoegt maakt alle andere slimmer, omdat de sleutels van boek A ook op boek B worden geprobeerd.</p>
+
+        <p>Transkribus en Loghi leveren tekst. Ana levert tekst plus de laag erboven: entiteiten, kruisingen, herkomst. Dat is geen kwaliteitsclaim ten opzichte van hun HTR (daar zijn ze beter in dan ik ooit zal zijn), maar een verschil in scope.</p>
+
+        <p>We moeten even stilstaan bij wat dat betekent: een entiteit is geen woord, maar het ding waar het woord naar verwijst.</p>
+
+        <p>Lees ik in een doopakte uit 1696 dat &ldquo;Hubertus Carolus Vanelslander, zoon van Hubertus en Joanna de Kemele, werd gedoopt in de kerk van Gits&rdquo;, dan haal ik daar zes entiteiten uit: drie personen, &eacute;&eacute;n plaats, &eacute;&eacute;n gebouw, &eacute;&eacute;n datum. Plus de relaties: vader, moeder, kind. Verschijnt diezelfde Hubertus dertig jaar later in een trouwakte, dan herkent Ana hem terug &mdash; niet omdat de letters hetzelfde zijn, maar omdat de entiteit dezelfde is (want als je weet waarom wat wat is, kun je afleiden waarom dat dat is, en dan weet je waarom wat dat is).</p>
+
+        <p>En dat is precies waar bewijs ontstaat: &eacute;&eacute;n bron die zegt dat iemand bestaat is een vermelding. Drie onafhankelijke bronnen die dezelfde persoon noemen op dezelfde datum in dezelfde plaats, dat is een feit. Zonder ge&iuml;soleerde entiteiten kun je niet kruisen, en zonder kruisen geen bewijs.</p>
+
+        <p>Dit element is een van de meest cruciale van mijn aanpak, en in deze vorm relatief nieuw. Het lijkt op wat in de archiefwereld Linked Data heet, met dat verschil dat hier de epistemologische bewijslagen zijn ge&iuml;ntegreerd &mdash; niet als latere annotatie, maar als onderdeel van de extractie zelf.</p>
+
+        <p>Wat dit oplevert is niet snellere OCR of een slimmere pipeline. Het is dat bronnen die los van elkaar in archiefkelders liggen (een MI5-dossier in Londen, een doopakte in Gits, een deportatielijst in Bad Arolsen) voor het eerst in dezelfde zoekvraag passen. Een naam die in drie collecties anders gespeld staat maar door Ana als mogelijke match wordt herkend, met een zekerheidslaag erbij en de vraag: is dit dezelfde persoon? Dat is geen automatisering. Dat is een soort onderzoek dat zonder dit niet bestond.</p>
+
+        <p>Ik liet het ontwerp doorlichten door een slim redeneerteam dat ik bouwde om blinde vlekken en biases in mijn eigen denken op te sporen. Het vond dingen die ik niet zag. Dat de feedbackloop het systeem kan corrumperen als ik consequent verkeerd corrigeer. Dat tien componenten eigenlijk vier lagen zijn. Dat het systeem aanvankelijk geen degradatiemodus had &mdash; een manier om met minder onderdelen door te draaien als er iets uitviel. Het scherpste punt waar het mee kwam: blijf hameren op de betrouwbaarheid van de keten omdat elk procent fout een gat oplevert dat zich verderop opstapelt. E&eacute;n procent op extractie, &eacute;&eacute;n procent op koppeling, &eacute;&eacute;n procent op samenvoeging &mdash; aan het eind van de keten weet je niet meer wat je weet.</p>
+
+        <p>Dus Ana voegt nooit automatisch entiteiten samen. Het legt de mogelijkheid voor en ik beslis. Naamvarianten zijn hypotheses die sterker worden naarmate meer bronnen ze bevestigen, niet feiten die de machine vaststelt.</p>
+
+        <p>Wat ik dus bouwde en robuust werkend heb: een werkend systeem, een groeiend lexicon, en een scherp beeld van het landschap. Ik weet wat Transkribus kost, waar Loghi faalt, en wat mijn eigen tools al konden voordat ik het doorhad. Inmiddels draait het profielen-lexicon ook.</p>
+
+        <p>Komende week pak ik volautomatisch een paar enorme collecties aan: honderdduizenden bestanden binnenhalen, in &eacute;&eacute;n nacht hoogwaardig laten lezen, en de eerste kruisingen blootleggen. Het oordeel over twijfelgevallen blijft mensenwerk &mdash; maar het werk om er &uuml;berhaupt zicht op te krijgen, dat doet Ana.</p>
+
+        <p>Wat voor mij gold, geldt vermoedelijk ook voor anderen die met versplinterde bronnen werken: ergens stop je niet meer bij tekst maar wil je verder. En die richting werkt.</p>
+
+        <p class="footnote">* Met &ldquo;entiteiten&rdquo; bedoel ik in dit stuk de specifieke dingen die ik uit teksten en databases isoleer en aan elkaar koppel. In mijn werk zijn dat onder andere: personen, organisaties, rollen, rangen, functies, plaatsen, datums, gebeurtenissen, schuilnamen, dossiers, identifiers, onderscheidingen, voorwerpen, werken (boeken, documentaires), bedragen of hoeveelheden, en de relaties tussen al deze elementen.</p>
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Mouseion OS &mdash; Gebouwd door <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+        <p style="margin-top: 8px;">Onderdeel van het <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a></p>
+    </div>
+</footer>
+
+<script data-goatcounter="https://mousion-os.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

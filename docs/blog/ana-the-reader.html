@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana, the Reader &mdash; Mouseion OS</title>
+<meta name="description" content="The processing layer of Mouseion has a name. Ana reads sources with comprehension, extracts entities, and crosses what sits separately in archive basements.">
+<meta property="og:title" content="Ana, the Reader &mdash; Mouseion OS">
+<meta property="og:description" content="In the Mouseion of Alexandria, the Anagnostes was the reader. Ana does the same, at unprecedented scale and speed.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://martijnaslander.github.io/mouseion-os/blog/ana-the-reader.html">
+<meta name="twitter:card" content="summary">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Verdana, system-ui, Helvetica, sans-serif;
+    background: #2c3338;
+    color: #eee;
+    line-height: 1.85;
+    font-size: 19px;
+    padding-top: 48px;
+}
+a { color: #eee; text-decoration: none; border-bottom: 1px solid #777; padding-bottom: 1px; }
+a:hover { color: #fff; background-color: #3e464e; border-color: #3e464e; }
+.container { max-width: 740px; margin: 0 auto; padding: 0 20px; }
+.accent { color: #d4a054; }
+
+.sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(44,51,56,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid #3e464e; }
+.sticky-nav-inner { max-width: 1140px; margin: 0 auto; padding: 12px 20px; display: flex; gap: 18px; align-items: center; justify-content: center; font-size: 14px; }
+.sticky-nav a { color: #b0b0b0; border-bottom: none; white-space: nowrap; }
+.sticky-nav a:hover { color: #fff; background: none; }
+.nav-divider { width: 1px; height: 16px; background: #3e464e; flex-shrink: 0; }
+.lang-flags { position: fixed; top: 10px; right: 20px; z-index: 101; display: flex; gap: 8px; }
+.lang-flags a { font-size: 22px; border-bottom: none; opacity: 0.5; transition: opacity 0.2s; line-height: 1; }
+.lang-flags a:hover { background: none; opacity: 0.8; }
+.lang-flags a.active { opacity: 1; }
+
+article { padding: 60px 0 44px; }
+article h1 { font-size: 40px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.2; }
+.post-meta { font-size: 14px; color: #888; margin-bottom: 36px; }
+article p { margin-bottom: 18px; }
+article .footnote { font-size: 15px; color: #b0b0b0; border-top: 1px solid #3e464e; margin-top: 36px; padding-top: 24px; }
+
+footer { padding: 44px 0; text-align: center; color: #b0b0b0; font-size: 13px; border-top: 1px solid #3e464e; }
+footer a { color: #c0c0c0; border-bottom: 1px dotted #555; }
+
+@media (max-width: 600px) {
+    article h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav">
+    <div class="sticky-nav-inner">
+        <a href="../index.html">Home</a>
+        <div class="nav-divider"></div>
+        <a href="../index.html#journal">Journal</a>
+    </div>
+</nav>
+
+<div class="lang-flags">
+    <a href="ana-the-reader.html" class="active" title="English">&#127468;&#127463;</a>
+    <a href="ana-de-lezer.html" title="Nederlands">&#127475;&#127473;</a>
+</div>
+
+<article>
+    <div class="container">
+        <h1>Ana, the Reader</h1>
+        <div class="post-meta">4 May 2026 &mdash; Martijn Aslander</div>
+
+        <p>I&rsquo;m building Mouseion &mdash; named after the research institute in Alexandria &mdash; a self-reading library. You feed it sources. It gives you back knowledge: who appears in them, what is claimed, and where sources cross each other, with the epistemological proof layer attached. The processing layer that does this had no name until this week.</p>
+
+        <p>It started with the Groningen War Puzzles &mdash; 3,150 handwritten resistance cards I made machine-readable in a single night. Monique Brinks, a historian who spent ten years researching Het Scholtenhuis in Groningen, asked sharp questions about it. To answer them properly I needed far more sources than just those cards. So I decided to do it right: build a library where every relevant book, dossier, and archival document is not only stored but readable, crossable with the database information I already had. Together, unprecedentedly powerful.</p>
+
+        <p>The kind of library I needed didn&rsquo;t exist. In academia, groups explore similar approaches &mdash; the DANIEL project at LITIS, Universit&eacute; de Rouen Normandie, integrates layout analysis, handwriting recognition, and entity extraction into one model. But as a working system for a single researcher that can cross multiple source types and provide proof layers, I found nothing. So I built one. And for that I started with research into the landscape of text recognition: OCR for printed text, HTR for handwriting.</p>
+
+        <p>The dominant player in the archival field is Transkribus. I wanted to understand their business model &mdash; not because I wanted to be a customer, but because everyone in the archival world talks about it and I wanted to know where the money sits. So I dug into their pricing, ownership structure, annual reports, EU subsidies received, Dutch projects and organisations that use it &mdash; and projects that deliberately don&rsquo;t, and why.</p>
+
+        <p>An Austrian cooperative, READ-COOP, develops it. The model runs on credits: one credit per handwritten page, roughly 24 cents on the public price list. Institutions get discounts through the Metagrapho API and custom contracts, but even at 50% off, large archives get expensive fast. Five million pages with institutional discount still comes to hundreds of thousands of euros. That&rsquo;s serious public money.</p>
+
+        <p>The Huygens Institute and the Dutch National Archives did that math too, for their GLOBALISE project. They wanted to make five million pages of VOC archives from the seventeenth and eighteenth centuries searchable with automatic handwriting recognition. With Transkribus it would be far too expensive. Instead they built Loghi, an open-source alternative.</p>
+
+        <p>I dug into Loghi. The GitHub issues told more than the marketing copy. The generic handwriting model scores up to 96% on standard material, but for specific historical datasets fine-tuning is essential &mdash; and even experienced IT engineers need hours to get it running. I checked the code and discovered the entire pipeline is locked to one chip manufacturer: NVIDIA. Without their GPUs, nothing runs accelerated. On Apple Silicon &mdash; the chip in every modern Mac &mdash; it only works through emulation, too slow for serious archival work. Ana is different: Apple Vision runs native on the Neural Engine, Tesseract on the CPU, Claude Vision in the cloud. None of the three need NVIDIA. Loghi&rsquo;s lead developer hinted at a move to transformers, away from their current architecture. They know their engine is aging.</p>
+
+        <p>But my real insights were elsewhere.</p>
+
+        <p>Both Transkribus and Loghi stop at the same point. They read a scan and deliver text. That&rsquo;s it. They have no understanding of what&rsquo;s there, they don&rsquo;t isolate entities*, they don&rsquo;t find connections between scanned sources. A baptismal record from 1696 and a shipping log from 1742 get the same treatment: pixels to letters, and there it ends.</p>
+
+        <p>My pipeline goes exactly where Transkribus and Loghi stop. Apple Vision reads the scan at 6% WER (Word Error Rate), a batch pipeline processes hundreds of scans at once, and on my server runs the extraction script that pulls out entities and connections. It runs robustly and at unprecedented speed. The orchestration between these components isn&rsquo;t AI &mdash; it&rsquo;s just a script. The difference with Transkribus and Loghi isn&rsquo;t whether it works, but where it stops: at text, or one layer deeper.</p>
+
+        <p>In March I read &mdash; through my own pipeline &mdash; a handwritten baptismal record from 1696, from the church of Gits in Flanders. Not just the text. I recognised names, placed Hubertus Carolus Vanelslander as the son of Hubertus senior and Joanna de Kemele, crossed the mention with other records, and traced a family line back to the end of the seventeenth century. The scan didn&rsquo;t become text. The scan became a person in a network, connected to the Groningen War Puzzles I was solving elsewhere.</p>
+
+        <p>That wasn&rsquo;t OCR. That was reading with comprehension. I did it with a combination of Apple Vision, Claude, and my own scripts &mdash; without having a name for it. The same pattern repeated elsewhere in my system: 52 books had gone through the pipeline by then, I&rsquo;d extracted over 13,000 entities, and my WW2 archive had grown to 2 million records, 196,000 of which are confirmed by two or more independent sources. Extremely powerful research tooling.</p>
+
+        <p>Now the entire reading and extraction process has a name: <strong>Ana</strong>.</p>
+
+        <p>In the Mouseion of Alexandria, the Anagnostes (&alpha;&nu;&alpha;&gamma;&nu;&omega;&sigma;&tau;&eta;&sigmaf;) was the reader &mdash; the one who made texts accessible to scholars. The task wasn&rsquo;t just reading aloud. It was interpreting, connecting, and making visible what lay hidden in the writings.</p>
+
+        <p>Ana does the same, at unprecedented scale and speed. To be clear: at its core this is software, not AI in the common sense. More like AI in a different sense: Archival Intelligence.</p>
+
+        <p>Ana 2.0 is running. It works in four layers: recognise the source, read it with the right engine, understand the content, and store everything including provenance. The work is distributed across machines I already own: the MacBook during the day, the Mac Mini at night, and a web server for what needs to run continuously &mdash; effortlessly working day and night.</p>
+
+        <p>The idea I&rsquo;m most excited about is the source profile lexicon.</p>
+
+        <p>Archivists have worked with description standards for decades &mdash; EAD and Records in Context, for example &mdash; but those describe a source after it&rsquo;s been read. An archivist reads a box of dossiers, places them in context, then fills in a form that becomes EAD-XML behind the scenes. The reading itself is still done by hand and head. My profiles guide the reading itself: which engine works best for which type of register or logbook, which fields to expect for that type, which vocabulary is used in it, and which pitfalls we&rsquo;ve learned from before.</p>
+
+        <p>A baptismal record is always structured the same way: a date, which church, name of the child, father, mother, the witnesses, and sometimes a minister. When Ana knows this before it starts reading, everything changes. It expects a mother&rsquo;s name after the father&rsquo;s name. It recognises that &ldquo;Hvbertvs&rdquo; is probably Hubertus. It flags when a field is missing that&rsquo;s normally there. This prior knowledge makes reading better, and faster.</p>
+
+        <p>For a new source type &mdash; military service records, notarial deeds &mdash; I build the profile together with Ana first. We go through twenty-five scans, discover the pattern, and record which fields are present and which pitfalls to expect. The lexicon grows with every new source, and becomes self-reinforcing: the more profiles we have, the faster we recognise what resembles them.</p>
+
+        <p>For printed books you don&rsquo;t need to build the profile. The author already did. A good non-fiction book reads itself. It has an index with all important persons and concepts, a bibliography that maps out the citation network, footnotes that mark where the sources lie, and a table of contents that reveals the structure. I call this Shelf-Keying: every book you add makes all others smarter, because the keys from book A get tried on book B.</p>
+
+        <p>Transkribus and Loghi deliver text. Ana delivers text plus the layer above it: entities, crossings, provenance. This isn&rsquo;t a quality claim about their HTR &mdash; they&rsquo;re better at that than I&rsquo;ll ever be &mdash; but a difference in scope.</p>
+
+        <p>We need to pause at what that means: an entity isn&rsquo;t a word. It&rsquo;s the thing the word refers to.</p>
+
+        <p>When I read in a baptismal record from 1696 that &ldquo;Hubertus Carolus Vanelslander, son of Hubertus and Joanna de Kemele, was baptised in the church of Gits,&rdquo; I extract six entities: three persons, one place, one building, one date. Plus the relations: father, mother, child. When that same Hubertus appears thirty years later in a marriage record, Ana recognises him &mdash; not because the letters are the same, but because the entity is the same. If you know why what is what, you can deduce why that is that, and then you know why what is that.</p>
+
+        <p>And that&rsquo;s exactly where proof emerges: one source saying someone exists is a mention. Three independent sources naming the same person on the same date in the same place &mdash; that&rsquo;s a fact. Without isolated entities you can&rsquo;t cross. Without crossing, no proof.</p>
+
+        <p>This element is one of the most crucial in my approach, and relatively new in this form. It resembles what the archival world calls Linked Data, with the difference that here the epistemological proof layers are integrated &mdash; not as a later annotation, but as part of the extraction itself.</p>
+
+        <p>What this yields isn&rsquo;t faster OCR or a smarter pipeline. It&rsquo;s that sources sitting separately in archive basements &mdash; an MI5 dossier in London, a baptismal record in Gits, a deportation list in Bad Arolsen &mdash; for the first time fit in the same query. A name spelled differently across three collections but recognised by Ana as a possible match, with a certainty layer attached and the question: is this the same person? That isn&rsquo;t automation. That&rsquo;s a kind of research that didn&rsquo;t exist without this.</p>
+
+        <p>I had the design reviewed by a reasoning team I built to catch blind spots and biases in my own thinking. It found things I didn&rsquo;t see. That the feedback loop can corrupt the system if I consistently correct wrongly. That ten components are really four layers. That the system initially had no degradation mode &mdash; a way to keep running with fewer components when something fails. The sharpest point it made: keep hammering on chain reliability, because every percent of error opens a hole that compounds downstream. One percent on extraction, one percent on linking, one percent on merging &mdash; at the end of the chain you no longer know what you know.</p>
+
+        <p>So Ana never merges entities automatically. It presents the possibility and I decide. Name variants are hypotheses that strengthen as more sources confirm them, not facts the machine establishes.</p>
+
+        <p>What I&rsquo;ve built and have running robustly: a working system, a growing lexicon, and a sharp picture of the landscape. I know what Transkribus costs, where Loghi fails, and what my own tools could already do before I realised it. The profile lexicon is running too.</p>
+
+        <p>Next week I&rsquo;m tackling several enormous collections fully automatically: pulling in hundreds of thousands of files, having them read at high quality in a single night, and exposing the first crossings. The judgment on edge cases remains human work &mdash; but the work of getting visibility in the first place, that&rsquo;s what Ana does.</p>
+
+        <p>What was true for me is likely true for others working with fragmented sources: at some point you stop settling for text and want to go further. And that direction works.</p>
+
+        <p class="footnote">* By &ldquo;entities&rdquo; I mean the specific things I isolate from texts and databases and link to each other. In my work these include: persons, organisations, roles, ranks, functions, places, dates, events, aliases, dossiers, identifiers, decorations, objects, works (books, documentaries), amounts or quantities, and the relations between all these elements.</p>
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Mouseion OS &mdash; Built by <a href="https://martijnaslander.github.io/life-lens-system/">Martijn Aslander</a></p>
+        <p style="margin-top: 8px;">Part of the <a href="https://martijnaslander.github.io/life-lens-system/">Life Lens System</a></p>
+    </div>
+</footer>
+
+<script data-goatcounter="https://mousion-os.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
